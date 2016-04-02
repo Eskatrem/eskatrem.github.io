@@ -115,3 +115,11 @@ $\displaystyle\frac{\text{func}(b)-\text{func}(a)}{b-a}$:</p>
 algorithm performs to calculate $\sqrt{2}$. Is that algorithm
 efficient? We make a small change in the first version of the code to
 return how many iterations it required:</p>
+
+<p>Can we do better? When searching for a better candidate that <code>a</code> and
+<code>b</code>, the bisection algorithm takes the value
+$\displaystyle\frac{a+b}{2}$. Taking the average is a reasonable
+choice but it can seem a bit arbitrary, and that is where lies any
+improvement of that algorithm. The algorithm of Newton-Raphson does
+just that: it starts with $a$ as a first candidate, and then the
+second candidate is calculated by solving: $f'(a)(x-a)-\text{target}=0$.</p>
