@@ -5,16 +5,16 @@
 <p>We introduce the Simplex algorithm, and the Newton-Raphson algorithm,
 along with their implementations in Python and Clojure.</p>
 
-<h2>Let's approximate $\sqrt{2}$!</h2>
+<h2>Let's approximate $$\sqrt{2}$$!</h2>
 
-<p>So let's set ourselves to calculate $\sqrt{2}$. It is defined as the
-positive solution of $x^2=2$. Since the function $f:x\mapsto x^2$ is
-strictly increasing over $\mathbb{R}^+$, the equation $f(x)=2,x\geq 0$
-has only one solution, and since $f(1)=1&lt;2$ and $f(2)=4>2$, we know
-that this solution is between $1$ and $2$. We now calculate
-$f(1.5)=2.25>2$, so we have $1&lt;\sqrt{2}&lt;1.5$. We get a better
-approximation by calculating $f(\frac{1+1.5}{2})=f(1.25)=1.5625&lt;2$ so
-we know that $1.25&lt;\sqrt{2}&lt;1.5$. We could carry on like that forever,
+<p>So let's set ourselves to calculate $$\sqrt{2}$$. It is defined as the
+positive solution of $$x^2=2$$. Since the function $$f:x\mapsto x^2$$ is
+strictly increasing over $$\mathbb{R}^+$$, the equation $$f(x)=2,x\geq 0$$
+has only one solution, and since $$f(1)=1&lt;2$$ and $$f(2)=4>2$$, we know
+that this solution is between $$1$$ and $$2$$. We now calculate
+$$f(1.5)=2.25>2$$, so we have $$1&lt;\sqrt{2}&lt;1.5$$. We get a better
+approximation by calculating $$f(\frac{1+1.5}{2})=f(1.25)=1.5625&lt;2$$ so
+we know that $$1.25&lt;\sqrt{2}&lt;1.5$$. We could carry on like that forever,
 but it will be faster to write a quick function to do that for us.
 Let's do it in Python:</p>
 
@@ -37,7 +37,7 @@ Let's do it in Python:</p>
 <h2>A more generalized method</h2>
 
 <p>The above code works well, but it can't be used to calculate any other
-things that $\sqrt{2}$. The first thing we can do is tweak it so it
+things that $$\sqrt{2}$$. The first thing we can do is tweak it so it
 can calculate the square root of any number:</p>
 
 <pre><code>def approx_sqrt(target,tol=0.00001,n_max=100):
@@ -85,7 +85,7 @@ increasing (at the line <code>if candidate_value &gt; target:</code>). If we ass
 <code>func</code> is monotonic (either always increasing or always decreasing) we
 can make a small modification to that code where we guess whether
 <code>func</code> is increasing or decreasing, by calculating the rate
-$\displaystyle\frac{\text{func}(b)-\text{func}(a)}{b-a}$:</p>
+$$\displaystyle\frac{\text{func}(b)-\text{func}(a)}{b-a}$$:</p>
 
 <pre><code>def approx2(func,target,a=0,b=100,tol=0.00001,n_max=100):
     rate = (func(b)-func(a))/(b-a)
@@ -107,6 +107,6 @@ $\displaystyle\frac{\text{func}(b)-\text{func}(a)}{b-a}$:</p>
 <h2>A faster algorithm: Newton-Raphson</h2>
 
 <p>Let us go back to the first problem and see how fast the first
-algorithm performs to calculate $\sqrt{2}$. Is that algorithm
+algorithm performs to calculate $$\sqrt{2}$$. Is that algorithm
 efficient? We make a small change in the first version of the code to
 return how many iterations it required:</p>
