@@ -1,3 +1,5 @@
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
 Example of a Lisp macro to implement Newton-Raphson algorithm.
 ======
 
