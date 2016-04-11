@@ -384,12 +384,26 @@ Again, not the most robust code, but it will fit for illustrative purpose.
 ###Complete implementation of Newton-Raphson
 
 What remains is now to integrate the `derivative` function with the
-rest of the code.
+rest of the code. It requires a small modification of the prototype
+code we wrote in a previous paragraph (func is gonna be a `Function`
+object that was described above):
+
+    def approx_nr(func,target,candidate=0,tol=0.001,n_max=100):
+        error = abs(func(candidate)-target)
+        n = 1
+        derivative_func = derivative(func.expression)
+        while error > tol and n < n_max:
+            candidate = (target-func(candidate))/evaluate_tree(derivative_func,{"x":candidate}) + candidate
+            candidate_value = func(candidate)
+            n += 1
+            error = abs(candidate_value-target)
+        return candidate,n
 
 
 
 A Lisp version with a macro
 ----
+
 
 ###Brief description of the Lisp syntax
 
