@@ -7,7 +7,7 @@ MathJax.Hub.Config({
 
 <h1>Example of a Lisp macro to implement Newton-Raphson algorithm.</h1>
 
-<p>We introduce the Simplex algorithm, and the Newton-Raphson algorithm,
+<p>We introduce the bisection algorithm, and the Newton-Raphson algorithm,
 along with their implementations in Python and Clojure.</p>
 
 <h2>Let's approximate $\sqrt{2}$!</h2>
@@ -122,4 +122,285 @@ $\displaystyle\frac{a+b}{2}$. Taking the average is a reasonable
 choice but it can seem a bit arbitrary, and that is where lies any
 improvement of that algorithm. The algorithm of Newton-Raphson does
 just that: it starts with $a$ as a first candidate, and then the
-second candidate is calculated by solving: $f'(a)(x-a)-\text{target}=0$.</p>
+second candidate is calculated by solving:
+$f'(a)(x-a)+f(a)=\text{target}$.</p>
+
+<p>Why this formula? $y=f'(a)(x-a)+f(a)$ is the equation of the tangent
+in $a$ of the curve defined by $y=f(x)$. Look for a graphical
+explanation.</p>
+
+<p>Here is the code for it:</p>
+
+<pre><code>def approx_sqrt_two_nr(tol=0.00001,n_max=100):
+    a,b = 1.0,2.0
+    n = 1
+    candidate = a
+    error = abs(candidate**2-2)
+    while error &gt; tol and n &lt; n_max:
+        candidate = (2-candidate**2)/(2.0*candidate) + candidate
+        candidate_value = candidate**2
+        n += 1
+        error = abs(candidate**2-2)
+    return candidate,n
+</code></pre>
+
+<p>[insert graphic here]</p>
+
+<p>The question that remains is: can we change the code to make it take
+a lambda argument like we did with the bisection algorithm?</p>
+
+<h2>Generalizing the Newton-Raphson code for any function</h2>
+
+<p>Let us look as what it would take: the Newton-Raphson algorithm
+requires to calculate the derivative of $f$, the function we want to
+invert, which means taking a function (in our case: <code>x**2</code>) and
+applying it a non trivial transformation (in our case it becomes<code>2*x</code>).</p>
+
+<p>It is possible in any language to have a program that calculates
+symbolic derivatives. What is harder is to have this integrated with
+the rest of the code. Here is some pseudo code to implement
+Newton-Raphson in python with the function to solve as an input:</p>
+
+<pre><code>def approx_nr(func,target,candidate=0,tol=0.001,n_max=100):
+    error = abs(func(candidate)-target)
+    n = 1
+    derivative_func = derivative(func) #this is the hard part
+    while error &gt; tol and n &lt; n_max:
+        candidate = (target-func(candidate))/derivative_func(candidate) + candidate
+        candidate_value = func(candidate)
+        n += 1
+        error = abs(candidate_value-target)
+    return candidate,n
+</code></pre>
+
+<p>The problem lies in the command <code>derivative(func)</code>, which is supposed
+to calculate the derivative of func. It is possible to do it with the
+numerical derivative, which consists at approximating the quantity
+$f'(x)$ with $f'(x) ~
+\displaystyle\frac{f(x+\varepsilon)-f(x-\varepsilon)}{2\varepsilon}$
+but I want to ignore this possibility as the goal of this article is
+to introduce a Lisp macro through symbolic derivative.</p>
+
+<h2>An attempt to do it in Python</h2>
+
+<p>To calculate the symbolic derivative of a function, we need to have
+first its expression, which isn't available with a lambda expression.
+So we need to introduce a <code>Function</code> object that will contain that:</p>
+
+<pre><code>class Function:
+
+    def __init__(self,expression,evaluation):
+        self.expression = expression
+        self.evaluation = evaluation
+</code></pre>
+
+<h3>Representing a synctactic tree</h3>
+
+<p>The question arises: how to store the function's expression? The
+simplest answer, as a string (so <code>x**2</code> would simply become <code>"x**2"</code>)
+turns out to be inconvenient to calculate the derivative. Instead it
+is much better to store the expression as a direct representation of
+the function syntactic tree: </p>
+
+<pre><code>   "**"
+ /      \
+</code></pre>
+
+<p>"x"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2</p>
+
+<p>This representation shows that the main function is <code>"**"</code> and its two
+arguments are <code>"x"</code> and <code>2</code>. One way to represent this
+programmatically is to create a class like:</p>
+
+<pre><code>class NodeFunction:
+
+    def __init__(self,main,arguments):
+        self.main = main
+        self.arguments = arguments
+</code></pre>
+
+<p>And our expression would become <code>NodeFunction("**",["x",2])</code>. If we
+want to represent <code>(x+1)**2</code> the same way, it would become:
+<code>NodeFunction("**",[NodeFunction("+",["x",1]),2])</code>.</p>
+
+<p>Another way is to represent our syntactic tree is through a list:
+<code>"x**2"</code> becomes <code>["**","x",2]</code>, and <code>"(x+1)**2"</code> becomes
+<code>["**",["+","x",1],2]</code>.</p>
+
+<p>Those two ways are equivalent but I will use the latter as it is more
+succinct, so I will stick with it for the rest.</p>
+
+<h3>Symbolic derivative</h3>
+
+<p>Let's calculate the derivative of a function! Before that, here is a
+reminder of the rules to calculate the derivative:</p>
+
+<p>$\frac{d(f+g)}{dx} = \frac{df}{dx}+\frac{dg}{dx}$</p>
+
+<p>$\frac{d(f-g)}{dx} = \frac{df}{dx} - \frac{dg}{dx}$</p>
+
+<p>$\frac{d(fg)}{dx} = \frac{df}{dx}g + f\frac{dg}{dx}$</p>
+
+<p>$\frac{d(f/g)}{dx} = \frac{\frac{df}{dx}g-f\frac{dg}{dx}}{\big(\frac{dg}{dx}\big)^2}$</p>
+
+<p>$\frac{d(f(g))}{dx} = \frac{dg}{dx}\Big(\frac{df}{dx}\Big)(g)$</p>
+
+<p>And the derivatives of elementary functions:</p>
+
+<p>$\frac{dx}{dx} = 1$</p>
+
+<p>$\frac{dK}{dx} = 0$ &nbsp;&nbsp;&nbsp; If $K$ is a constant (with respect to $x$).</p>
+
+<p>$\frac{dx^n}{dx} = nx^{n-1}$</p>
+
+<p>$\frac{d(\cos x)}{dx} = -\sin x$</p>
+
+<p>$\frac{d(\sin x)}{dx} = \cos x$</p>
+
+<p>$\frac{de^x}{dx} = e^x$</p>
+
+<p>$\frac{d\ln x}{dx} = \frac{1}{x}$</p>
+
+<p>Let's now write a function that calculates the symbolic derivative of
+a mathematical expression. We will restrict ourselves to the functions
+listed above.</p>
+
+<p>The our function will take a mathematical expression as an argument,
+along with the variable we are calculative the derivative with respect
+to. So the signature of our function will be
+<code>derivative(expr,variable)</code>.</p>
+
+<p>The code will check if the expression is a constant or a variable, in
+which case calculating the derivative is straightforward (it's $1$ if
+the expression is equal to the variable, and $0$ otherwise), or if the
+expression is more complex (then it will be expressed as a list). In
+which case the code will break down the expression into the main
+function (the first element of the list) and its arguments (the rest
+of the list). So the start of the function will look like:</p>
+
+<pre><code>def derivative(expr,variable):
+    if type(expr) is not list:
+        return 1 if expr == variable else 0
+    main, args = expr[0],expr[1:]
+    ...
+</code></pre>
+
+<p>Then we will check what is the value of <code>main</code> and apply the
+corresponding formula to the arguments. For example, if <code>main</code> is
+<code>"+"</code>, it will look like:</p>
+
+<pre><code>derivative_args = map(lambda x:derivative(x,variable),args)
+return ["+"]+derivative_args
+</code></pre>
+
+<p>So the whole function is:</p>
+
+<pre><code>def derivative(expr,variable):
+    if type(expr) is not list:
+        return 1 if expr == variable else 0
+    main, args = expr[0], expr[1:]
+    if main == "+":
+        derivative_args = map(lambda x:derivative(x,variable),args)
+        return ["+"]+derivative_args
+    if main == "*":
+        u,v = args[0],args[1] #assume there are only two arguments
+        du, dv = derivative(u,variable), derivative(v, variable)
+        return ["+",["*",du,v],[u,dv]]
+    if main == "/":
+        u,v = args[0],args[1] #assume there are only two arguments
+        du, dv = derivative(u,variable), derivative(v, variable)
+        return ["/",["-",["*",du,v],["*",u,dv]],["**",v,2]]
+    if main == "**":
+        u,v = args[0],args[1] #assume there are only two arguments
+        du, dv = derivative(u,variable), derivative(v, variable)
+        return ["*",["+",dv,["/",du,u]],["**",u,v]]
+    if main == "exp": #exponential function
+        u = arg[0] #assume one argument only
+        du = derivative(u,variable)
+        return ["*",du,["exp",u]]
+    if main == "ln":
+        u = arg[0] #assume one argument only
+        du = derivative(u,variable)
+        return ["/",du,u]
+    if main == "cos":
+        u = arg[0] #assume one argument only
+        du = derivative(u,variable)
+        return ["*",du,["*",-1,["sin",u]]]
+    if main == "sin":
+        u = arg[0] #assume one argument only
+        du = derivative(u,variable)
+        return ["*",du,["cos",u]]
+    return None
+</code></pre>
+
+<p>This code is not the most robust and has some defaults (for example,
+the multiplication can only take two arguments) but it is simple and
+illustrates how symbolic derivatives are calculated.</p>
+
+<p>We also need to be able to evaluate a syntactic tree at a given point.
+The code will be very similar to the <code>derivative</code> function above: the
+signature of the function will be <code>evaluate_tree(tree,values)</code> where
+<code>values</code> is going to be a dictionary (to allow multiple variables).
+For example <code>evaluate_tree(["+",1,"x"],{"x":2})</code> should read
+<code>["+",1,"x"]</code>, replace <code>"x"</code> by <code>2</code> when it encounters it, and proceed
+the evaluation recursively.</p>
+
+<p>The code will be:</p>
+
+<pre><code>def evaluate_tree(tree,values):
+    if type(tree) is not list:
+        if type(tree) is str:
+            return values[tree]
+        else: #in that case we assume that tree is a number
+            return tree
+    main, args = tree[0], tree[1:]
+    args_evaluated = map(lambda x: evaluate_tree(x,values),args)
+    if main == "+":
+        return sum(args_evaluated)
+    if main == "-":
+        return args_evaluated[0] - sum(args_evaluated[1:])
+    if main == "*":
+        #again,assuming only two arguments
+        return args_evaluated[0]*args_evaluated[1]
+    if main == "/":
+        return args_evaluated[0]/args_evaluated[1]
+    if main == "**":
+        return args_evaluated[0]**args_evaluated[1]
+    #for the rest of the function, we assume only one argument
+    #the functions log, exp, cos and sin need to be imported
+    #from the math module
+    if main == "ln":
+        return log(args_evaluated[0])
+    if main == "exp":
+        return log(args_evaluated[0])
+    if main == "cos":
+        return cos(args_evaluated[0])
+    if main == "sin":
+        return sin(args_evaluated[0])
+    return None
+</code></pre>
+
+<p>Again, not the most robust code, but it will fit for illustrative purpose.</p>
+
+<h3>Complete implementation of Newton-Raphson</h3>
+
+<p>What remains is now to integrate the <code>derivative</code> function with the
+rest of the code. It requires a small modification of the prototype
+code we wrote in a previous paragraph (func is gonna be a <code>Function</code>
+object that was described above):</p>
+
+<pre><code>def approx_nr(func,target,candidate=0,tol=0.001,n_max=100):
+    error = abs(func(candidate)-target)
+    n = 1
+    derivative_func = derivative(func.expression)
+    while error &gt; tol and n &lt; n_max:
+        candidate = (target-func(candidate))/evaluate_tree(derivative_func,{"x":candidate}) + candidate
+        candidate_value = func(candidate)
+        n += 1
+        error = abs(candidate_value-target)
+    return candidate,n
+</code></pre>
+
+<h2>A Lisp version with a macro</h2>
+
+<h3>Brief description of the Lisp syntax</h3>
