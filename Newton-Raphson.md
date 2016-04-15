@@ -26,21 +26,22 @@ we know that $1.25<\sqrt{2}<1.5$. We could carry on like that forever,
 but it will be faster to write a quick function to do that for us.
 Let's do it in Python:
 
-
-    def approx_sqrt_two(tol=0.00001,n_max=100):
-        a,b = 1.0,2.0
+```python
+def approx_sqrt_two(tol=0.00001,n_max=100):
+    a,b = 1.0,2.0
+    error = (b-a)/2
+    n = 1
+    while error > tol and n < n_max:
+        candidate = (a+b)/2
+        candidate_value = candidate**2
+        if candidate_value > 2:
+            b = candidate
+        else:
+            a = candidate
+        n += 1
         error = (b-a)/2
-        n = 1
-        while error > tol and n < n_max:
-            candidate = (a+b)/2
-            candidate_value = candidate**2
-            if candidate_value > 2:
-                b = candidate
-            else:
-                a = candidate
-            n += 1
-            error = (b-a)/2
-        return candidate
+    return candidate
+```
 
 A more generalized method
 -----
