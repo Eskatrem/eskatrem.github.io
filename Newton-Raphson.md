@@ -15,80 +15,80 @@ MathJax.Hub.Config({
 });
 </script>
 <STYLE type="text/css">
-.MathJax .mo { color: green }
-.Mathjax .hll { color: inherit }
-.MathJax .c { color: inherit} 
-.MathJax .err { color inherit}
-.MathJax	.k { color	: inherit}
-.MathJax	.o { color	: inherit}
-.MathJax	.cm { color	: inherit}
-.MathJax	.cp { color	: inherit}
-.MathJax	.c1 { color	: inherit}
-.MathJax	.cs { color	: inherit}
-.MathJax	.gd { color	: inherit}
-.MathJax	.ge { font-style	: inherit}
-.MathJax	.gr { color	: inherit}
-.MathJax	.gh { color	: inherit}
-.MathJax	.gi { color	: inherit}
-.MathJax	.go { color	: inherit}
-.MathJax	.gp { color	: inherit}
-.MathJax	.gs { font-weight	: inherit}
-.MathJax	.gu { color	: inherit}
-.MathJax	.gt { color	: inherit}
-.MathJax	.kc { color	: inherit}
-.MathJax	.kd { color	: inherit}
-.MathJax	.kn { color	: inherit}
-.MathJax	.kp { color	: inherit}
-.MathJax	.kr { color	: inherit}
-.MathJax	.kt { color	: inherit}
-.MathJax	.m { color	: inherit}
-.MathJax	.s { background-color	: inherit}
-.MathJax	.na { color	: inherit}
-.MathJax	.nb { color	: inherit}
-.MathJax	.nc { color	: inherit}
-.MathJax	.no { color	: inherit}
-.MathJax	.nd { color	: inherit}
-.MathJax	.ni { color	: inherit}
-.MathJax	.ne { color	: inherit}
-.MathJax	.nf { color	: inherit}
-.MathJax	.nl { color	: inherit}
-.MathJax	.nn { color	: inherit}
-.MathJax	.nt { color	: inherit}
-.MathJax	.nv { color	: inherit}
-.MathJax	.ow { color	: inherit}
-.MathJax	.w { color	: inherit}
-.MathJax	.mb { color	: inherit}
-.MathJax	.mf { color	: inherit}
-.MathJax	.mh { color	: inherit}
-.MathJax	.mi { color	: inherit}
-.MathJax	.mo { color	: inherit}
-.MathJax	.sb { background-color	: inherit}
-.MathJax	.sc { color	: inherit}
-.MathJax	.sd { color	: inherit}
-.MathJax	.s2 { background-color	: inherit}
-.MathJax	.se { color	: inherit}
-.MathJax	.sh { background-color	: inherit}
-.MathJax	.si { background-color	: inherit}
-.MathJax	.sx { color	: inherit}
-.MathJax	.sr { color	: inherit}
-.MathJax	.s1 { background-color	: inherit}
-.MathJax	.ss { color	: inherit}
-.MathJax	.bp { color	: inherit}
-.MathJax	.vc { color	: inherit}
-.MathJax	.vg { color	: inherit}
-.MathJax	.vi { color	: inherit}
-.MathJax	.il { color	: inherit}
+.MathJax .mo { color: inherit; font-weight: inherit }
+.Mathjax .hll { color: inherit; font-weight: inherit }
+.MathJax .c { color: inherit; font-weight: inherit} 
+.MathJax .err { color inherit; font-weight: inherit}
+.MathJax	.k { color	: inherit; font-weight: inherit}
+.MathJax	.o { color	: inherit; font-weight: inherit}
+.MathJax	.cm { color	: inherit; font-weight: inherit}
+.MathJax	.cp { color	: inherit; font-weight: inherit}
+.MathJax	.c1 { color	: inherit; font-weight: inherit}
+.MathJax	.cs { color	: inherit; font-weight: inherit}
+.MathJax	.gd { color	: inherit; font-weight: inherit}
+.MathJax	.ge { font-style	: inherit; font-weight: inherit}
+.MathJax	.gr { color	: inherit; font-weight: inherit}
+.MathJax	.gh { color	: inherit; font-weight: inherit}
+.MathJax	.gi { color	: inherit; font-weight: inherit}
+.MathJax	.go { color	: inherit; font-weight: inherit}
+.MathJax	.gp { color	: inherit; font-weight: inherit}
+.MathJax	.gs { font-weight	: inherit; font-weight: inherit}
+.MathJax	.gu { color	: inherit; font-weight: inherit}
+.MathJax	.gt { color	: inherit; font-weight: inherit}
+.MathJax	.kc { color	: inherit; font-weight: inherit}
+.MathJax	.kd { color	: inherit; font-weight: inherit}
+.MathJax	.kn { color	: inherit; font-weight: inherit}
+.MathJax	.kp { color	: inherit; font-weight: inherit}
+.MathJax	.kr { color	: inherit; font-weight: inherit}
+.MathJax	.kt { color	: inherit; font-weight: inherit}
+.MathJax	.m { color	: inherit; font-weight: inherit}
+.MathJax	.s { background-color	: inherit; font-weight: inherit}
+.MathJax	.na { color	: inherit; font-weight: inherit}
+.MathJax	.nb { color	: inherit; font-weight: inherit}
+.MathJax	.nc { color	: inherit; font-weight: inherit}
+.MathJax	.no { color	: inherit; font-weight: inherit}
+.MathJax	.nd { color	: inherit; font-weight: inherit}
+.MathJax	.ni { color	: inherit; font-weight: inherit}
+.MathJax	.ne { color	: inherit; font-weight: inherit}
+.MathJax	.nf { color	: inherit; font-weight: inherit}
+.MathJax	.nl { color	: inherit; font-weight: inherit}
+.MathJax	.nn { color	: inherit; font-weight: inherit}
+.MathJax	.nt { color	: inherit; font-weight: inherit}
+.MathJax	.nv { color	: inherit; font-weight: inherit}
+.MathJax	.ow { color	: inherit; font-weight: inherit}
+.MathJax	.w { color	: inherit; font-weight: inherit}
+.MathJax	.mb { color	: inherit; font-weight: inherit}
+.MathJax	.mf { color	: inherit; font-weight: inherit}
+.MathJax	.mh { color	: inherit; font-weight: inherit}
+.MathJax	.mi { color	: inherit; font-weight: inherit}
+.MathJax	.mo { color	: inherit; font-weight: inherit}
+.MathJax	.sb { background-color	: inherit; font-weight: inherit}
+.MathJax	.sc { color	: inherit; font-weight: inherit}
+.MathJax	.sd { color	: inherit; font-weight: inherit}
+.MathJax	.s2 { background-color	: inherit; font-weight: inherit}
+.MathJax	.se { color	: inherit; font-weight: inherit}
+.MathJax	.sh { background-color	: inherit; font-weight: inherit}
+.MathJax	.si { background-color	: inherit; font-weight: inherit}
+.MathJax	.sx { color	: inherit; font-weight: inherit}
+.MathJax	.sr { color	: inherit; font-weight: inherit}
+.MathJax	.s1 { background-color	: inherit; font-weight: inherit}
+.MathJax	.ss { color	: inherit; font-weight: inherit}
+.MathJax	.bp { color	: inherit; font-weight: inherit}
+.MathJax	.vc { color	: inherit; font-weight: inherit}
+.MathJax	.vg { color	: inherit; font-weight: inherit}
+.MathJax	.vi { color	: inherit; font-weight: inherit}
+.MathJax	.il { color	: inherit; font-weight: inherit}
 
 </STYLE>
-Example of a Lisp macro to implement Newton-Raphson algorithm.
-======
+#Example of a Lisp macro to implement Newton-Raphson algorithm.
 
-test:
-
-$$a^2+b^2 = c^2$$
-
-We introduce the bisection algorithm, and the Newton-Raphson algorithm,
-along with their implementations in Python and Clojure.
+We introduce two numerical algorithms to solve equations: the
+bissection algorithm and the Newton-Raphson algorithm. Newton-Raphson
+performs better, and we compare its implementations in a language that
+doesn't have Lisp style macros (Python) and one language that has them
+(Clojure), to illustrate what macros can do. On the way, the reader
+will have learned about numerical algorithms, symbolic derivation,
+some elements to write an interpreter, and the Lisp syntax.
 
 Let's approximate $\sqrt{2}$
 ---------
@@ -508,10 +508,11 @@ the syntactic tree earlier.
 
 Macros can be seen as special functions that enable the programmer to
 modify the syntax of the language. How? By controlling how the
-arguments are getting evaluated. Let's consider the `comment` macro in
-Clojure that just comments some code.
+arguments are getting evaluated. Is that an helpful explanation?
+Probably not but I hope to be able to shed some light soon by giving
+an example of a concrete macro.
 
-TODO: find example of short macro
+
 
 ###Lisp version of Newton-Raphson
 
@@ -549,19 +550,21 @@ First, the derivative:
                                    v (get 1 args)
                                    dv (der v)]
                                (list '* du something))))))
-
+    ;;TODO: finish that code
 
 
                 
 We can then do exactly the same as in Python and write a function
 `approx-nr` whose signature will be `(defn approx-nr
-[function syntactic-tree target tolerance min-val max-val]` that will be
+[function syntactic-tree target tolerance min-val max-val])` that will be
 called like: `(approx-nr (fn [x] (** x 2)) '(** 2 x) 2 0.00001 1 2)`.
 But since the two arguments `function` and `syntactic-tree` are very
 closed (`syntactic-tree` is, after all, the syntactic tree of
 `function`, and with the Lisp syntax the code of a function is its
 syntactic tree...) it is a legitimate concern to want to avoid using
 an extra argument and get the syntactic tree directly from `function`.
+
+####Getting the code of an anonymous function
 
 For that, we would have to tell the compiler something in the line of
 "Hey, do not evaluate
@@ -573,15 +576,91 @@ evaluated, but with a macro, it is: here is a macro that extracts the
 source code of an anonymous function: `(defmacro get-code [func] (list
 'quote (nth func 2)))`
 
-See how it works in the Clojure interpreter:
+First let's see how it works in the Clojure interpreter:
 
     user=> (get-code (fn [x] (+ 1 x)))
     (+ 1 x)
 
+How did that work? when calling `get-code`, `func` is replaced by the
+value we gave it, in our case `(fn [x] (+ 1 x))`, but it is not
+evaluated. That is not the case with functions, so a language like
+Python that doesn't have macros can't do that. Then, `(fn [x] (+ 1
+x))` is treated as a normal list, so `(nth func 2)` returns the 3rd
+value in that list, in our case `(+ 1 x)`. The `quote` in `get-code`
+is here to say "ok, treat that as a list instead of trying to evaluate
+it". The symbol `'` before the `quote` is here to tell the clojure
+compiler not to eval `quote` right away.
 
+We can see how the `get-code` macro is expanded, using `macroexpand`:
+
+    user=> (macroexpand '(get-code (fn [x] (+ 1 x))))
+    (quote (+ 1 x))
+
+
+Then that last line `(quote (+ 1 x))` is evaluated and at the end it
+returns the list `(+ 1 x)`.
+
+
+####Clojure implementation of Newton-Raphson
+
+We can get the variables names of a function the same way we got its
+code. For the sake of conciseness I gonna assume the functions here only
+have one variable, so the code to get that variable name is: `(defmacro get-variable [func] (list 'quote (nth (nth func 1) 0)))`.
+
+Armed with those two utility macros and the `derivative` function we
+are able to write the code for the Newton-Raphson algorithm:
+
+    :::Clojure
+    (defn approx-nr
+        ([func target] (approx-nr func target start 0.00000001 100))
+        ([func target start tolerance n-iterations]
+            (let [variable (get-variable func)
+                  code (get-code func)
+                  der (derivative code variable)]
+              (loop [k 0
+                     res start]
+                  (if (or
+                         (>= k n-iterations)
+                         (< (Math/abs (- (func res) target)) tolerance))
+                     res
+                     (recur (inc k) (+ res (/ (- target (func res)) (der res)))))))))
+
+The main difference with the Python version is that we don't need to
+pass the syntactic tree of `func` to our algorithm since it is
+extracted directly from `func`'s code.
 
 ###For a conclusion...
 
 The python version of the Newton-Raphson algorithm required to
 implement a function `eval_tree` that can evaluate a syntactic tree,
-which is basically a small subset of a Lisp interpreter. 
+which is basically a small subset of a Lisp interpreter. The Lisp
+version doesn't need that, which makes the code shorter as a result,
+and also safer as it is not possible to pass to the Newton-Raphson
+algorithm  a wrong syntactic tree for the function we are trying to solve.
+
+Instead, we have embedded in our code a very small Computer Algebra
+System that operates directly on the code we use. This would not have
+been possible without macros. The Lisp guru and evangelist Paul Graham
+wrote: "It
+would be convenient here if I could give an example of a powerful
+macro, and say there! how about that? But if I did, it would just look
+like gibberish to someone who didn't know Lisp; there isn't room here
+to explain everything you'd need to know to understand what it meant.
+In Ansi Common Lisp I tried to move things along as fast as I could,
+and even so I didn't get to macros until page 160." [0] Here we
+managed to give an example of a powerful macro in much less than 160
+pages.
+
+However, the goal for which we had use of macros, numerically solving
+arbitrary equations, isn't the most common task in programming, and I
+believe this is for this reasons we had to use a macro: if it was
+something people did a lot, the functionalities to calculate
+derivatives of anonymous functions would have been incorporated to 
+popular languages.
+
+Thus macros are useful for greenfield projects, and once such projects
+become mainstream functionalities provided by macros get put into
+mainstream languages.
+
+
+[0] http://paulgraham.com/avg.html
