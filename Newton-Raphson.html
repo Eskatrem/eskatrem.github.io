@@ -451,6 +451,152 @@ object that was described above):</p>
 don't have a special syntax, so for example <code>1+2*(3-4)</code> is <code>(+ 1 (* 2
 (- 3 4)))</code>. Please notice that it is very similar to how we expressed
 the syntactic tree earlier.</p>
+<p>Since the rest of the code in the article is going to be in Clojure, I
+will give a brief overview of the Clojure syntax. Feel free to skip if
+you're already familiar with this language.</p>
+<h4>Variable assignments</h4>
+<p>Global variables are defined using <code>def</code>. For example:</p>
+<div class="codehilite"><pre><span class="nv">user=&gt;</span> <span class="p">(</span><span class="k">def </span><span class="nv">x</span> <span class="mi">4</span><span class="p">)</span>
+<span class="o">#</span><span class="ss">&#39;user/x</span>
+<span class="nv">user=&gt;</span> <span class="nv">x</span>
+<span class="mi">4</span>
+</pre></div>
+
+
+<h4>Local variables</h4>
+<p>Local variables are defined using <code>let</code>. For example:</p>
+<div class="codehilite"><pre><span class="nv">user=&gt;</span> <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">x</span> <span class="mi">5</span><span class="p">]</span>
+<span class="o">#</span><span class="nv">_=&gt;</span>    <span class="p">(</span><span class="nb">* </span><span class="mi">2</span> <span class="nv">x</span><span class="p">))</span>
+<span class="mi">10</span>
+</pre></div>
+
+
+<p>Inside this <code>let</code> is defined the variable <code>x</code> equal to 5. We then
+calculate <code>(* 2 x)</code>.</p>
+<p><code>let</code>'s can be used to define multiple variables at the same time,
+some depending of the previous ones:</p>
+<div class="codehilite"><pre><span class="nv">user=&gt;</span> <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">x</span> <span class="mi">1</span>
+<span class="o">#</span><span class="nv">_=&gt;</span>       <span class="nv">y</span> <span class="mi">2</span>
+<span class="o">#</span><span class="nv">_=&gt;</span>       <span class="nv">z</span> <span class="p">(</span><span class="nb">+ </span><span class="nv">x</span> <span class="nv">y</span><span class="p">)]</span>
+<span class="o">#</span><span class="nv">_=&gt;</span>   <span class="p">(</span><span class="nb">* </span><span class="mi">2</span> <span class="nv">z</span><span class="p">))</span>
+<span class="mi">6</span>
+</pre></div>
+
+
+<h4>Anonymous functions</h4>
+<p>Clojure can also take anonymous functions, they can be expressed in
+two ways: <code>#(+ 1 %)</code> (<code>%</code> is the argument, if there are multiple
+arguments it becomes <code>#(+ 1 %1 %2)</code>), or using <code>fn</code>: <code>(fn [x] (+ 1
+x))</code>.</p>
+<p>Anonymous functions are called just like standard functions, except
+that instead of their names, it's their full codes that is given:</p>
+<div class="codehilite"><pre><span class="nv">user=&gt;</span> <span class="p">((</span><span class="k">fn </span><span class="p">[</span><span class="nv">x</span><span class="p">]</span> <span class="p">(</span><span class="nb">+ </span><span class="mi">1</span> <span class="nv">x</span><span class="p">))</span> <span class="mi">5</span><span class="p">)</span>
+<span class="mi">6</span>
+</pre></div>
+
+
+<h4>Function definition</h4>
+<p>A function is created using <code>defn</code>. For example:</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv">my-function</span> <span class="p">[</span><span class="nv">x</span><span class="p">]</span>
+    <span class="p">(</span><span class="nb">+ </span><span class="mi">1</span> <span class="nv">x</span><span class="p">))</span>
+</pre></div>
+
+
+<p><code>defn</code> can also be used to define several times the function with
+different arguments:</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv">my-other-function</span> <span class="p">[</span><span class="nv">x</span><span class="p">]</span>
+        <span class="p">(</span><span class="nf">my-other-function</span> <span class="p">[</span><span class="nv">x</span> <span class="mi">2</span><span class="p">])</span>
+      <span class="nv">my-other-function</span> <span class="p">[</span><span class="nv">x</span> <span class="nv">y</span><span class="p">]</span>
+        <span class="p">(</span><span class="nb">* </span><span class="nv">x</span> <span class="nv">y</span><span class="p">))</span>
+</pre></div>
+
+
+<p>That was <code>my-other-function</code> can take either one or two arguments.</p>
+<p>It is also possible to use <code>def</code> to define a function:</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="k">def </span><span class="nv">yet-another-function</span> <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">x</span><span class="p">]</span>
+    <span class="p">(</span><span class="nb">+ </span><span class="mi">2</span> <span class="nv">x</span><span class="p">)))</span>
+</pre></div>
+
+
+<h4>Lists and Vectors</h4>
+<p>In Clojure, vectors are between brackets: <code>[1, 2, 3]</code> and lists are
+between parenthesis, but they are quoted so they are not evaluated:
+<code>'(1 2 3)</code>. The function to get an element of a list is <code>nth</code>:</p>
+<div class="codehilite"><pre><span class="nv">user=&gt;</span> <span class="p">(</span><span class="nb">nth </span><span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">)</span> <span class="mi">2</span><span class="p">)</span>
+<span class="mi">3</span>
+</pre></div>
+
+
+<p>It is very common to want to access to the first element of a list,
+and also to the rest of the elements of that list. For that two
+functions exist: <code>first</code> and <code>rest</code>:</p>
+<div class="codehilite"><pre><span class="nv">user=&gt;</span> <span class="p">(</span><span class="nb">first </span><span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">))</span>
+<span class="mi">1</span>
+<span class="nv">user=&gt;</span> <span class="p">(</span><span class="nb">rest </span><span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">))</span>
+<span class="p">(</span><span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Clojure data are immutable, so lists can't be modified. However, it is
+possible to construct a new list from a list and a new element, where
+the new element is put at the beginning of the new list, with the function
+<code>cons</code>:</p>
+<div class="codehilite"><pre><span class="nv">user=&gt;</span> <span class="p">(</span><span class="nb">cons </span><span class="mi">0</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span>
+<span class="p">(</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+
+<h4>Conditions</h4>
+<p>Like in most of the programming languages, Clojure has <code>if</code>
+conditions, that takes a boolean, a value to return if the boolean is
+true and another value to return otherwise.</p>
+<div class="codehilite"><pre><span class="nv">user=&gt;</span> <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&gt; </span><span class="mi">3</span> <span class="mi">4</span><span class="p">)</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">)</span>
+<span class="mi">2</span>
+</pre></div>
+
+
+<p>There is also a switch statement called <code>cond</code> to test several
+conditions on data. <code>cond</code> has to contain a default case, named
+`:default':</p>
+<div class="codehilite"><pre><span class="nv">user=&gt;</span> <span class="p">(</span><span class="kd">defn </span><span class="nv">show-cond</span> <span class="p">[</span><span class="nv">x</span><span class="p">]</span>
+<span class="o">#</span><span class="nv">_=&gt;</span>      <span class="p">(</span><span class="nb">cond </span><span class="p">(</span><span class="nb">&lt; </span><span class="nv">x</span> <span class="mi">0</span><span class="p">)</span> <span class="s">&quot;negative&quot;</span>
+<span class="o">#</span><span class="nv">_=&gt;</span>            <span class="p">(</span><span class="nb">&lt; </span><span class="nv">x</span> <span class="mi">10</span><span class="p">)</span> <span class="s">&quot;small&quot;</span>
+<span class="o">#</span><span class="nv">_=&gt;</span>            <span class="p">(</span><span class="nb">&lt; </span><span class="nv">x</span> <span class="mi">100</span><span class="p">)</span> <span class="s">&quot;normal&quot;</span>
+<span class="o">#</span><span class="nv">_=&gt;</span>            <span class="p">(</span><span class="nb">&lt; </span><span class="nv">x</span> <span class="mi">1000</span><span class="p">)</span> <span class="s">&quot;big&quot;</span>
+<span class="o">#</span><span class="nv">_=&gt;</span>            <span class="ss">:default</span> <span class="s">&quot;really big&quot;</span><span class="p">))</span>
+<span class="o">#</span><span class="ss">&#39;user/show-cond</span>
+<span class="nv">user=&gt;</span> <span class="p">(</span><span class="nf">show-cond</span> <span class="mi">100000</span><span class="p">)</span>
+<span class="s">&quot;really big&quot;</span>
+<span class="nv">user=&gt;</span> <span class="p">(</span><span class="nf">show-cond</span> <span class="mi">-1</span><span class="p">)</span>
+<span class="s">&quot;negative&quot;</span>
+<span class="nv">user=&gt;</span> <span class="p">(</span><span class="nf">show-cond</span> <span class="mi">5</span><span class="p">)</span>
+<span class="s">&quot;small&quot;</span>
+</pre></div>
+
+
+<h4>Recursion and loops</h4>
+<p>For performance issues, recursions are done with <code>recur</code>.</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv">my-sum</span> <span class="p">[</span><span class="nv">a-list</span><span class="p">]</span>
+         <span class="p">(</span><span class="nf">my-sum</span> <span class="nv">a-list</span> <span class="mi">0</span><span class="p">)</span>
+      <span class="nv">my-sum</span> <span class="p">[</span><span class="nv">a-list</span> <span class="nv">pre-sum</span><span class="p">]</span>
+         <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">nil? </span><span class="nv">a-list</span><span class="p">)</span> <span class="mi">0</span>
+             <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">x</span> <span class="p">(</span><span class="nb">first </span><span class="nv">a-list</span><span class="p">)</span>
+                   <span class="nv">xs</span> <span class="p">(</span><span class="nb">rest </span><span class="nv">a-list</span><span class="p">)]</span>
+               <span class="p">(</span><span class="nf">recur</span> <span class="nv">xs</span> <span class="p">(</span><span class="nb">+ </span><span class="nv">pre-sum</span> <span class="nv">x</span><span class="p">)))))</span>
+</pre></div>
+
+
+<p>Loops also work with <code>recur</code>, here is an example</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv">my-other-sum</span> <span class="p">[</span><span class="nv">a-list</span><span class="p">]</span>
+    <span class="p">(</span><span class="nf">loop</span> <span class="p">[</span><span class="nv">res</span> <span class="mi">0</span>
+           <span class="nv">lst</span> <span class="nv">a-list</span><span class="p">]</span>
+       <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nf">nil?</span> <span class="nv">lst</span><span class="p">)</span> <span class="nv">res</span>
+           <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">x</span> <span class="p">(</span><span class="k">first </span><span class="nv">a-list</span><span class="p">)</span>
+                 <span class="nv">xs</span> <span class="p">(</span><span class="k">rest </span><span class="nv">a-list</span><span class="p">)]</span>
+             <span class="p">(</span><span class="nf">recur</span> <span class="p">(</span><span class="nf">+</span> <span class="nv">res</span> <span class="nv">x</span><span class="p">)</span> <span class="nv">xs</span><span class="p">)))))</span>
+</pre></div>
+
+
 <h3>Lisp macros</h3>
 <p>Macros can be seen as special functions that enable the programmer to
 modify the syntax of the language. How? By controlling how the
