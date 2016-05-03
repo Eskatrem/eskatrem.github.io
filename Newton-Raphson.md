@@ -504,6 +504,170 @@ don't have a special syntax, so for example `1+2*(3-4)` is `(+ 1 (* 2
 (- 3 4)))`. Please notice that it is very similar to how we expressed
 the syntactic tree earlier.
 
+Since the rest of the code in the article is going to be in Clojure, I
+will give a brief overview of the Clojure syntax. Feel free to skip if
+you're already familiar with this language.
+
+
+
+####Variable assignments
+
+Global variables are defined using `def`. For example:
+
+    :::clojure
+    user=> (def x 4)
+    #'user/x
+    user=> x
+    4
+
+####Local variables
+
+Local variables are defined using `let`. For example:
+
+    :::clojure
+    user=> (let [x 5]
+    #_=>    (* 2 x))
+    10
+
+Inside this `let` is defined the variable `x` equal to 5. We then
+calculate `(* 2 x)`.
+
+`let`'s can be used to define multiple variables at the same time,
+some depending of the previous ones:
+
+    :::clojure
+    user=> (let [x 1
+    #_=>       y 2
+    #_=>       z (+ x y)]
+    #_=>   (* 2 z))
+    6
+
+
+
+####Anonymous functions
+
+Clojure can also take anonymous functions, they can be expressed in
+two ways: `#(+ 1 %)` (`%` is the argument, if there are multiple
+arguments it becomes `#(+ 1 %1 %2)`), or using `fn`: `(fn [x] (+ 1
+x))`.
+
+Anonymous functions are called just like standard functions, except
+that instead of their names, it's their full codes that is given:
+
+    :::clojure
+    user=> ((fn [x] (+ 1 x)) 5)
+    6
+
+####Function definition
+
+A function is created using `defn`. For example:
+
+    :::clojure
+    (defn my-function [x]
+        (+ 1 x))
+
+`defn` can also be used to define several times the function with
+different arguments:
+
+    :::clojure
+    (defn my-other-function [x]
+            (my-other-function [x 2])
+          my-other-function [x y]
+            (* x y))
+
+That was `my-other-function` can take either one or two arguments.
+
+
+It is also possible to use `def` to define a function:
+
+    :::clojure
+    (def yet-another-function (fn [x]
+        (+ 2 x)))
+
+####Lists and Vectors
+
+In Clojure, vectors are between brackets: `[1, 2, 3]` and lists are
+between parenthesis, but they are quoted so they are not evaluated:
+`'(1 2 3)`. The function to get an element of a list is `nth`:
+
+    :::clojure
+    user=> (nth '(1 2 3 4 5 6) 2)
+    3
+
+It is very common to want to access to the first element of a list,
+and also to the rest of the elements of that list. For that two
+functions exist: `first` and `rest`:
+
+    :::clojure
+    user=> (first '(1 2 3 4))
+    1
+    user=> (rest '(1 2 3 4))
+    (2 3 4)
+
+Clojure data are immutable, so lists can't be modified. However, it is
+possible to construct a new list from a list and a new element, where
+the new element is put at the beginning of the new list, with the function
+`cons`:
+
+    :::clojure
+    user=> (cons 0 '(1 2 3))
+    (0 1 2 3)
+
+
+####Conditions
+
+Like in most of the programming languages, Clojure has `if`
+conditions, that takes a boolean, a value to return if the boolean is
+true and another value to return otherwise.
+
+    :::clojure
+    user=> (if (> 3 4) 1 2)
+    2
+
+There is also a switch statement called `cond` to test several
+conditions on data. `cond` has to contain a default case, named
+`:default':
+
+    :::clojure
+    user=> (defn show-cond [x]
+    #_=>      (cond (< x 0) "negative"
+    #_=>            (< x 10) "small"
+    #_=>            (< x 100) "normal"
+    #_=>            (< x 1000) "big"
+    #_=>            :default "really big"))
+    #'user/show-cond
+    user=> (show-cond 100000)
+    "really big"
+    user=> (show-cond -1)
+    "negative"
+    user=> (show-cond 5)
+    "small"
+
+####Recursion and loops
+
+For performance issues, recursions are done with `recur`.
+
+    :::clojure
+    (defn my-sum [a-list]
+             (my-sum a-list 0)
+          my-sum [a-list pre-sum]
+             (if (nil? a-list) 0
+                 (let [x (first a-list)
+                       xs (rest a-list)]
+                   (recur xs (+ pre-sum x)))))
+
+
+Loops also work with `recur`, here is an example
+
+    (defn my-other-sum [a-list]
+        (loop [res 0
+               lst a-list]
+           (if (nil? lst) res
+               (let [x (first a-list)
+                     xs (rest a-list)]
+                 (recur (+ res x) xs)))))
+
+
 ###Lisp macros
 
 Macros can be seen as special functions that enable the programmer to
@@ -664,3 +828,6 @@ mainstream languages.
 
 
 [0] http://paulgraham.com/avg.html
+    
+
+
