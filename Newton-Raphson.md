@@ -319,6 +319,61 @@ Another way is to represent our syntactic tree is through a list:
 Those two ways are equivalent but I will use the latter as it is more
 succinct, so I will stick with it for the rest.
 
+###Evaluation of a syntactic tree
+
+We will need to be able to evaluate a syntactic tree at a given point.
+For that we write a function whose signature will `evaluate_tree(tree,values)` where
+`values` is going to be a dictionary (to allow multiple variables).
+For example `evaluate_tree(["+",1,"x"],{"x":2})` should read
+`["+",1,"x"]`, replace `"x"` by `2` when it encounters it, and proceed
+the evaluation recursively. If `tree` is not a list, we will assume
+it's either a number, in which case we return it, or a string, in
+which case we assume that it is one of the keys of `values`, and
+return its corresponding value.
+
+If `tree` is a list, we take the main function that is `tree[0]` and the arguments. We
+will evaluate the arguments using `evaluate_tree` recursively, and
+once they are reduced to numbers we will be able to simply apply the
+main function to them.
+
+The code will be:
+
+    :::python
+    def evaluate_tree(tree,values):
+        if type(tree) is not list:
+            if type(tree) is str:
+                return values[tree]
+            else: #in that case we assume that tree is a number
+                return tree
+        main, args = tree[0], tree[1:]
+        args_evaluated = map(lambda x: evaluate_tree(x,values),args)
+        if main == "+":
+            return sum(args_evaluated)
+        if main == "-":
+            return args_evaluated[0] - sum(args_evaluated[1:])
+        if main == "*":
+            #again,assuming only two arguments
+            return args_evaluated[0]*args_evaluated[1]
+        if main == "/":
+            return args_evaluated[0]/args_evaluated[1]
+        if main == "**":
+            return args_evaluated[0]**args_evaluated[1]
+        #for the rest of the function, we assume only one argument
+        #the functions log, exp, cos and sin need to be imported
+        #from the math module
+        if main == "ln":
+            return log(args_evaluated[0])
+        if main == "exp":
+            return log(args_evaluated[0])
+        if main == "cos":
+            return cos(args_evaluated[0])
+        if main == "sin":
+            return sin(args_evaluated[0])
+        return None
+
+This is not the most robust code, but it will fit for illustrative purpose.
+
+
 ###Symbolic derivative
 
 Let's calculate the derivative of a function! Before that, here is a
@@ -359,13 +414,12 @@ along with the variable we are calculative the derivative with respect
 to. So the signature of our function will be
 `derivative(expr,variable)`.
 
-The code will check if the expression is a constant or a variable, in
-which case calculating the derivative is straightforward (it's $1$ if
-the expression is equal to the variable, and $0$ otherwise), or if the
-expression is more complex (then it will be expressed as a list). In
-which case the code will break down the expression into the main
-function (the first element of the list) and its arguments (the rest
-of the list). So the start of the function will look like:
+The mechanism to calculate the symbolic derivative of a syntactic tree
+is very similar to the mechanism to evaluate a syntactic tree: we go
+down the tree, if the tree is a constant or a variable, calculating
+the derivative is straightforward (it's $1$ if
+the expression is equal to the variable, and $0$ otherwise).
+So the start of the function will look like:
 
     :::python
     def derivative(expr,variable):
@@ -374,6 +428,10 @@ of the list). So the start of the function will look like:
         main, args = expr[0],expr[1:]
         ...
 
+
+If the tree is a list, the code will break down the expression into the main
+function (the first element of the list) and its arguments (the rest
+of the list). 
 Then we will check what is the value of `main` and apply the
 corresponding formula to the arguments. For example, if `main` is
 `"+"`, it will look like:
@@ -382,7 +440,10 @@ corresponding formula to the arguments. For example, if `main` is
     derivative_args = map(lambda x:derivative(x,variable),args)
     return ["+"]+derivative_args
 
-So the whole function is:
+For the other possible values of `main` we will apply the rules of the
+derivation that we saw above.
+
+At the end the whole function is:
 
     :::python
     def derivative(expr,variable):
@@ -422,54 +483,10 @@ So the whole function is:
             return ["*",du,["cos",u]]
         return None
 
-This code is not the most robust and has some defaults (for example,
+Again, this is not the most robust code and has some defaults (for example,
 the multiplication can only take two arguments) but it is simple and
 illustrates how symbolic derivatives are calculated.
 
-We also need to be able to evaluate a syntactic tree at a given point.
-The code will be very similar to the `derivative` function above: the
-signature of the function will be `evaluate_tree(tree,values)` where
-`values` is going to be a dictionary (to allow multiple variables).
-For example `evaluate_tree(["+",1,"x"],{"x":2})` should read
-`["+",1,"x"]`, replace `"x"` by `2` when it encounters it, and proceed
-the evaluation recursively.
-
-The code will be:
-
-    :::python
-    def evaluate_tree(tree,values):
-        if type(tree) is not list:
-            if type(tree) is str:
-                return values[tree]
-            else: #in that case we assume that tree is a number
-                return tree
-        main, args = tree[0], tree[1:]
-        args_evaluated = map(lambda x: evaluate_tree(x,values),args)
-        if main == "+":
-            return sum(args_evaluated)
-        if main == "-":
-            return args_evaluated[0] - sum(args_evaluated[1:])
-        if main == "*":
-            #again,assuming only two arguments
-            return args_evaluated[0]*args_evaluated[1]
-        if main == "/":
-            return args_evaluated[0]/args_evaluated[1]
-        if main == "**":
-            return args_evaluated[0]**args_evaluated[1]
-        #for the rest of the function, we assume only one argument
-        #the functions log, exp, cos and sin need to be imported
-        #from the math module
-        if main == "ln":
-            return log(args_evaluated[0])
-        if main == "exp":
-            return log(args_evaluated[0])
-        if main == "cos":
-            return cos(args_evaluated[0])
-        if main == "sin":
-            return sin(args_evaluated[0])
-        return None
-
-Again, not the most robust code, but it will fit for illustrative purpose.
 
 ###Complete implementation of Newton-Raphson
 
