@@ -1,4 +1,4 @@
-<!-- <script src="require.min.js"></script> -->
+<!-- <script src="require.min."></script> -->
 <!-- <script src="splitAtDelimiters.js"></script> -->
 
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css"> -->
@@ -782,6 +782,15 @@ Then that last line `(quote (+ 1 x))` is evaluated and at the end it
 returns the list `(+ 1 x)`.
 
 
+####Creating an anonymous function from a list
+
+Once we have extracted the code of `func` we will calculate its
+derivative as a list representing its syntactic tree, and then we will
+need to make a function out of it. This can be done with a macro:
+
+    (defmacro make-function [variable core]
+        (list 'fn [variable] core))
+
 ####Clojure implementation of Newton-Raphson
 
 We can get the variables names of a function the same way we got its
@@ -797,7 +806,7 @@ are able to write the code for the Newton-Raphson algorithm:
         ([func target start tolerance n-iterations]
             (let [variable (get-variable func)
                   code (get-code func)
-                  der (derivative code variable)]
+                  der (make-function (derivative code variable))]
               (loop [k 0
                      res start]
                   (if (or
@@ -810,7 +819,7 @@ The main difference with the Python version is that we don't need to
 pass the syntactic tree of `func` to our algorithm since it is
 extracted directly from `func`'s code.
 
-###For a conclusion...
+###As a conclusion...
 
 The python version of the Newton-Raphson algorithm required to
 implement a function `eval_tree` that can evaluate a syntactic tree,
@@ -842,6 +851,25 @@ popular languages.
 Thus macros are useful for greenfield projects, and once such projects
 become mainstream functionalities provided by macros get put into
 mainstream languages.
+
+###Addendum: another way to implement Newton-Raphson for anonymous functions, in Python
+
+Python specifically has two modules that can be used: the Python
+parser `ast` and the `inspect` module to be able to get the source
+code of a function as a string.
+
+    :::python
+    In [7]: inspect.getsource(lambda x: 2*x)
+    Out[7]: u'inspect.getsource(lambda x: 2*x)\n'
+
+It is thus possible to have a function that takes a lambda expression
+as an argument, get its source code through `inspect` and parses it
+with `ast` to get the syntactic tree, then calculate the derivative of
+that tree and make a lambda expression out of it.
+
+However this approach is very specific to Python, which is why it
+wasn't much discussed here: I used Python to represent languages that
+don't have macros, and this approach would not be doable in Java for example.
 
 
 [0] http://paulgraham.com/avg.html
