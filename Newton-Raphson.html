@@ -1,4 +1,4 @@
-<!-- <script src="require.min.js"></script> -->
+<!-- <script src="require.min."></script> -->
 
 <!-- <script src="splitAtDelimiters.js"></script> -->
 
@@ -689,6 +689,15 @@ compiler not to eval <code>quote</code> right away.</p>
 
 <p>Then that last line <code>(quote (+ 1 x))</code> is evaluated and at the end it
 returns the list <code>(+ 1 x)</code>.</p>
+<h4>Creating an anonymous function from a list</h4>
+<p>Once we have extracted the code of <code>func</code> we will calculate its
+derivative as a list representing its syntactic tree, and then we will
+need to make a function out of it. This can be done with a macro:</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="n">defmacro</span> <span class="n">make</span><span class="o">-</span><span class="n">function</span> <span class="p">[</span><span class="n">variable</span> <span class="n">core</span><span class="p">]</span>
+    <span class="p">(</span><span class="n">list</span> <span class="err">&#39;</span><span class="n">fn</span> <span class="p">[</span><span class="n">variable</span><span class="p">]</span> <span class="n">core</span><span class="p">))</span>
+</pre></div>
+
+
 <h4>Clojure implementation of Newton-Raphson</h4>
 <p>We can get the variables names of a function the same way we got its
 code. For the sake of conciseness I gonna assume the functions here only
@@ -700,7 +709,7 @@ are able to write the code for the Newton-Raphson algorithm:</p>
     <span class="p">([</span><span class="nv">func</span> <span class="nv">target</span> <span class="nv">start</span> <span class="nv">tolerance</span> <span class="nv">n-iterations</span><span class="p">]</span>
         <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">variable</span> <span class="p">(</span><span class="nf">get-variable</span> <span class="nv">func</span><span class="p">)</span>
               <span class="nv">code</span> <span class="p">(</span><span class="nf">get-code</span> <span class="nv">func</span><span class="p">)</span>
-              <span class="nv">der</span> <span class="p">(</span><span class="nf">derivative</span> <span class="nv">code</span> <span class="nv">variable</span><span class="p">)]</span>
+              <span class="nv">der</span> <span class="p">(</span><span class="nf">make-function</span> <span class="p">(</span><span class="nf">derivative</span> <span class="nv">code</span> <span class="nv">variable</span><span class="p">))]</span>
           <span class="p">(</span><span class="k">loop </span><span class="p">[</span><span class="nv">k</span> <span class="mi">0</span>
                  <span class="nv">res</span> <span class="nv">start</span><span class="p">]</span>
               <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">or</span>
@@ -714,7 +723,7 @@ are able to write the code for the Newton-Raphson algorithm:</p>
 <p>The main difference with the Python version is that we don't need to
 pass the syntactic tree of <code>func</code> to our algorithm since it is
 extracted directly from <code>func</code>'s code.</p>
-<h3>For a conclusion...</h3>
+<h3>As a conclusion...</h3>
 <p>The python version of the Newton-Raphson algorithm required to
 implement a function <code>eval_tree</code> that can evaluate a syntactic tree,
 which is basically a small subset of a Lisp interpreter. The Lisp
@@ -742,4 +751,20 @@ popular languages.</p>
 <p>Thus macros are useful for greenfield projects, and once such projects
 become mainstream functionalities provided by macros get put into
 mainstream languages.</p>
+<h3>Addendum: another way to implement Newton-Raphson for anonymous functions, in Python</h3>
+<p>Python specifically has two modules that can be used: the Python
+parser <code>ast</code> and the <code>inspect</code> module to be able to get the source
+code of a function as a string.</p>
+<div class="codehilite"><pre><span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="s">u&#39;inspect.getsource(lambda x: 2*x)</span><span class="se">\n</span><span class="s">&#39;</span>
+</pre></div>
+
+
+<p>It is thus possible to have a function that takes a lambda expression
+as an argument, get its source code through <code>inspect</code> and parses it
+with <code>ast</code> to get the syntactic tree, then calculate the derivative of
+that tree and make a lambda expression out of it.</p>
+<p>However this approach is very specific to Python, which is why it
+wasn't much discussed here: I used Python to represent languages that
+don't have macros, and this approach would not be doable in Java for example.</p>
 <p>[0] http://paulgraham.com/avg.html</p>
