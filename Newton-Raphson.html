@@ -84,7 +84,8 @@ MathJax.Hub.Config({
 .MathJax    .il { color : inherit; font-weight: inherit}</p>
 </STYLE>
 
-<h1>Example of a Lisp macro to implement Newton-Raphson algorithm.</h1>
+<h1>Implementation of the Newton-Raphson algorithm in Python and Clojure:</h1>
+<h1>showing the advantage of the Lisp syntax</h1>
 <p>We introduce two numerical algorithms to solve equations: the
 bissection algorithm and the Newton-Raphson algorithm. Newton-Raphson
 performs better, and we compare its implementations in a language that
@@ -269,6 +270,14 @@ Newton-Raphson in python with the function to solve as an input:</p>
 </pre></div>
 
 
+<p>Running that in the Python interpreter:</p>
+<div class="codehilite"><pre><span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">approx_sqrt_two_nr</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">(</span><span class="mf">1.4142156862745099</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</pre></div>
+
+
+<p>It only takes 4 iterations against 17 iterations required by the
+bisection algorithm. Much faster!</p>
 <p>The problem lies in the command <code>derivative(func)</code>, which is supposed
 to calculate the derivative of func. It is possible to do it with the
 numerical derivative, which consists at approximating the quantity
