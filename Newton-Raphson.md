@@ -288,6 +288,15 @@ Newton-Raphson in python with the function to solve as an input:
             error = abs(candidate_value-target)
         return candidate,n
 
+Running that in the Python interpreter:
+
+    :::Python
+    In [5]: approx_sqrt_two_nr()
+    Out[5]: (1.4142156862745099, 4)
+
+It only takes 4 iterations against 17 iterations required by the
+bisection algorithm. Much faster!
+
 The problem lies in the command `derivative(func)`, which is supposed
 to calculate the derivative of func. It is possible to do it with the
 numerical derivative, which consists at approximating the quantity
