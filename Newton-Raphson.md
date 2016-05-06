@@ -203,6 +203,28 @@ algorithm performs to calculate $\sqrt{2}$. Is that algorithm
 efficient? We make a small change in the first version of the code to
 return how many iterations it required:
 
+    :::python
+    def approx_sqrt_two(f=lambda x:x**2,tol=0.00001,n_max=100):
+    a,b = 1.0,2.0
+    error = (b-a)/2
+    n = 1
+    while error > tol and n < n_max:
+        candidate = (a+b)/2
+        candidate_value = f(candidate)
+        if candidate_value > 2:
+            b = candidate
+        else:
+            a = candidate
+        n += 1
+        error = (b-a)/2
+    return candidate,n
+
+    :::Python
+    In [7]: approx_sqrt_two()
+    Out[7]: (1.4141998291015625, 17)
+
+The code requires 17 iterations to calculate an approximation of
+$\sqrt{2}$ with a precision of 0.00001.
 
 Can we do better? When searching for a better candidate that `a` and
 `b`, the bisection algorithm takes the value
@@ -214,8 +236,13 @@ second candidate is calculated by solving:
 $f'(a)(x-a)+f(a)=\text{target}$.
 
 Why this formula? $y=f'(a)(x-a)+f(a)$ is the equation of the tangent
-in $a$ of the curve defined by $y=f(x)$. Look for a graphical
-explanation.
+in $a$ of the curve defined by $y=f(x)$. 
+
+The picture below the general principle: starts from point (1), draw
+the tangent of the curve there, find where the tangent intersects the
+like $y=2$, keep the corresponding abscissa and reiterate.
+
+![Image Alt](nr-illustration.png)
 
 Here is the code for it:
 
@@ -232,7 +259,6 @@ Here is the code for it:
             error = abs(candidate**2-2)
         return candidate,n
 
-[insert graphic here]
 
 The question that remains is: can we change the code to make it take
 a lambda argument like we did with the bisection algorithm?
@@ -265,10 +291,11 @@ Newton-Raphson in python with the function to solve as an input:
 The problem lies in the command `derivative(func)`, which is supposed
 to calculate the derivative of func. It is possible to do it with the
 numerical derivative, which consists at approximating the quantity
-$f'(x)$ with $f'(x) ~
+$f'(x)$ with $f'(x) \simeq
 \displaystyle\frac{f(x+\varepsilon)-f(x-\varepsilon)}{2\varepsilon}$
+for a $\varepsilon$ small,
 but I want to ignore this possibility as the goal of this article is
-to introduce a Lisp macro through symbolic derivative.
+to discuss Lisp macros through symbolic derivative.
     
 An attempt to do it in Python
 ----
@@ -509,11 +536,11 @@ object that was described above):
 
 
 
-A Lisp version with a macro
+A Lisp version with some macros
 ----
 
 
-###Brief description of the Lisp syntax
+###Brief description of the Lisp syntax, and a primer on the Clojure language
 
 The Lisp syntax is different of most language: instead of having
 `function(arg1,arg2)`, lisp is `(function arg1 arg2)`. The operators
@@ -522,7 +549,7 @@ don't have a special syntax, so for example `1+2*(3-4)` is `(+ 1 (* 2
 the syntactic tree earlier.
 
 Since the rest of the code in the article is going to be in Clojure, I
-will give a brief overview of the Clojure syntax. Feel free to skip if
+will give a brief overview of the Clojure language. Feel free to skip if
 you're already familiar with this language.
 
 
@@ -715,23 +742,38 @@ First, the derivative:
               (cond
                 (= '+ main) (cons '+ (map der args))
                 (= '- main) (cons '- (map der args))
-                (= '* main) (let [u (get 0 args)
+                (= '* main) (let [u (nth args 0)
                                   du (der u)
-                                  v (get 1 args)
+                                  v (nth args 1)
                                   dv (der v)]
                               (list '+ (list '* u dv) (list '* v du)))
-                (= '/ main) (let [u (get 0 args)
+                (= '/ main) (let [u (nth args 0)
                                   du (der u)
-                                  v (get 1 args)
+                                  v (nth args 1)
                                   dv (der v)]
                               (list '/ (list '- (list '* du v) (list
     '* u dv)) (list '** v 2)))
-                (= '** main) (let [u (get 0 args)
+                (= '** main) (let [u (nth args 0)
                                    du (der u)
-                                   v (get 1 args)
+                                   v (nth args 1)
                                    dv (der v)]
-                               (list '* du something))))))
-    ;;TODO: finish that code
+                               (list '_ (list '+ dv (list '/ du u)
+    (list '** u v))))
+                (= 'exp main) (let [u (nth args 0)
+                                    du (der u)]
+                                (list '* du (exp u)))
+                (= 'ln main) (let [u (nth args 0)
+                                    du (der u)]
+                                (list '/ du u))
+                (= 'cos main) (let [u (nth args 0)
+                                    du (der u)]
+                                (list '* ('* -1 du) (list 'sin u)))
+                (= 'sin main) (let [u (nth args 0)
+                                    du (der u)]
+                                (list '* du (list 'sin u)))
+                :default nil))))
+
+
 
 
                 
@@ -759,6 +801,7 @@ source code of an anonymous function: `(defmacro get-code [func] (list
 
 First let's see how it works in the Clojure interpreter:
 
+    :::Clojure
     user=> (get-code (fn [x] (+ 1 x)))
     (+ 1 x)
 
@@ -774,6 +817,7 @@ compiler not to eval `quote` right away.
 
 We can see how the `get-code` macro is expanded, using `macroexpand`:
 
+    :::Clojure
     user=> (macroexpand '(get-code (fn [x] (+ 1 x))))
     (quote (+ 1 x))
 
@@ -788,6 +832,7 @@ Once we have extracted the code of `func` we will calculate its
 derivative as a list representing its syntactic tree, and then we will
 need to make a function out of it. This can be done with a macro:
 
+    :::Clojure
     (defmacro make-function [variable core]
         (list 'fn [variable] core))
 
