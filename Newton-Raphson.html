@@ -193,6 +193,29 @@ $\displaystyle\frac{\text{func}(b)-\text{func}(a)}{b-a}$:</p>
 algorithm performs to calculate $\sqrt{2}$. Is that algorithm
 efficient? We make a small change in the first version of the code to
 return how many iterations it required:</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">approx_sqrt_two</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="n">tol</span><span class="o">=</span><span class="mf">0.00001</span><span class="p">,</span><span class="n">n_max</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+<span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span><span class="mf">2.0</span>
+<span class="n">error</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">while</span> <span class="n">error</span> <span class="o">&gt;</span> <span class="n">tol</span> <span class="ow">and</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">n_max</span><span class="p">:</span>
+    <span class="n">candidate</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">candidate_value</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">candidate</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">candidate_value</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">candidate</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">candidate</span>
+    <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+<span class="k">return</span> <span class="n">candidate</span><span class="p">,</span><span class="n">n</span>
+
+<span class="p">:::</span><span class="n">Python</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">approx_sqrt_two</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="p">(</span><span class="mf">1.4141998291015625</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The code requires 17 iterations to calculate an approximation of
+$\sqrt{2}$ with a precision of 0.00001.</p>
 <p>Can we do better? When searching for a better candidate that <code>a</code> and
 <code>b</code>, the bisection algorithm takes the value
 $\displaystyle\frac{a+b}{2}$. Taking the average is a reasonable
@@ -202,8 +225,11 @@ just that: it starts with $a$ as a first candidate, and then the
 second candidate is calculated by solving:
 $f'(a)(x-a)+f(a)=\text{target}$.</p>
 <p>Why this formula? $y=f'(a)(x-a)+f(a)$ is the equation of the tangent
-in $a$ of the curve defined by $y=f(x)$. Look for a graphical
-explanation.</p>
+in $a$ of the curve defined by $y=f(x)$. </p>
+<p>The picture below the general principle: starts from point (1), draw
+the tangent of the curve there, find where the tangent intersects the
+like $y=2$, keep the corresponding abscissa and reiterate.</p>
+<p><img alt="Image Alt" src="nr-illustration.png" /></p>
 <p>Here is the code for it:</p>
 <div class="codehilite"><pre><span class="k">def</span> <span class="nf">approx_sqrt_two_nr</span><span class="p">(</span><span class="n">tol</span><span class="o">=</span><span class="mf">0.00001</span><span class="p">,</span><span class="n">n_max</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
     <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span><span class="mf">2.0</span>
@@ -219,7 +245,6 @@ explanation.</p>
 </pre></div>
 
 
-<p>[insert graphic here]</p>
 <p>The question that remains is: can we change the code to make it take
 a lambda argument like we did with the bisection algorithm?</p>
 <h2>Generalizing the Newton-Raphson code for any function</h2>
@@ -247,10 +272,11 @@ Newton-Raphson in python with the function to solve as an input:</p>
 <p>The problem lies in the command <code>derivative(func)</code>, which is supposed
 to calculate the derivative of func. It is possible to do it with the
 numerical derivative, which consists at approximating the quantity
-$f'(x)$ with $f'(x) ~
+$f'(x)$ with $f'(x) \simeq
 \displaystyle\frac{f(x+\varepsilon)-f(x-\varepsilon)}{2\varepsilon}$
+for a $\varepsilon$ small,
 but I want to ignore this possibility as the goal of this article is
-to introduce a Lisp macro through symbolic derivative.</p>
+to discuss Lisp macros through symbolic derivative.</p>
 <h2>An attempt to do it in Python</h2>
 <p>To calculate the symbolic derivative of a function, we need to have
 first its expression, which isn't available with a lambda expression.
@@ -455,15 +481,15 @@ object that was described above):</p>
 </pre></div>
 
 
-<h2>A Lisp version with a macro</h2>
-<h3>Brief description of the Lisp syntax</h3>
+<h2>A Lisp version with some macros</h2>
+<h3>Brief description of the Lisp syntax, and a primer on the Clojure language</h3>
 <p>The Lisp syntax is different of most language: instead of having
 <code>function(arg1,arg2)</code>, lisp is <code>(function arg1 arg2)</code>. The operators
 don't have a special syntax, so for example <code>1+2*(3-4)</code> is <code>(+ 1 (* 2
 (- 3 4)))</code>. Please notice that it is very similar to how we expressed
 the syntactic tree earlier.</p>
 <p>Since the rest of the code in the article is going to be in Clojure, I
-will give a brief overview of the Clojure syntax. Feel free to skip if
+will give a brief overview of the Clojure language. Feel free to skip if
 you're already familiar with this language.</p>
 <h4>Variable assignments</h4>
 <p>Global variables are defined using <code>def</code>. For example:</p>
@@ -627,23 +653,36 @@ Clojure.</p>
           <span class="p">(</span><span class="nf">cond</span>
             <span class="p">(</span><span class="nb">= </span><span class="ss">&#39;+</span> <span class="nv">main</span><span class="p">)</span> <span class="p">(</span><span class="nb">cons </span><span class="ss">&#39;+</span> <span class="p">(</span><span class="nb">map </span><span class="nv">der</span> <span class="nv">args</span><span class="p">))</span>
             <span class="p">(</span><span class="nb">= </span><span class="ss">&#39;-</span> <span class="nv">main</span><span class="p">)</span> <span class="p">(</span><span class="nb">cons </span><span class="ss">&#39;-</span> <span class="p">(</span><span class="nb">map </span><span class="nv">der</span> <span class="nv">args</span><span class="p">))</span>
-            <span class="p">(</span><span class="nb">= </span><span class="ss">&#39;*</span> <span class="nv">main</span><span class="p">)</span> <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">u</span> <span class="p">(</span><span class="nb">get </span><span class="mi">0</span> <span class="nv">args</span><span class="p">)</span>
+            <span class="p">(</span><span class="nb">= </span><span class="ss">&#39;*</span> <span class="nv">main</span><span class="p">)</span> <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">u</span> <span class="p">(</span><span class="nb">nth </span><span class="nv">args</span> <span class="mi">0</span><span class="p">)</span>
                               <span class="nv">du</span> <span class="p">(</span><span class="nf">der</span> <span class="nv">u</span><span class="p">)</span>
-                              <span class="nv">v</span> <span class="p">(</span><span class="nb">get </span><span class="mi">1</span> <span class="nv">args</span><span class="p">)</span>
+                              <span class="nv">v</span> <span class="p">(</span><span class="nb">nth </span><span class="nv">args</span> <span class="mi">1</span><span class="p">)</span>
                               <span class="nv">dv</span> <span class="p">(</span><span class="nf">der</span> <span class="nv">v</span><span class="p">)]</span>
                           <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;+</span> <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;*</span> <span class="nv">u</span> <span class="nv">dv</span><span class="p">)</span> <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;*</span> <span class="nv">v</span> <span class="nv">du</span><span class="p">)))</span>
-            <span class="p">(</span><span class="nb">= </span><span class="ss">&#39;/</span> <span class="nv">main</span><span class="p">)</span> <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">u</span> <span class="p">(</span><span class="nb">get </span><span class="mi">0</span> <span class="nv">args</span><span class="p">)</span>
+            <span class="p">(</span><span class="nb">= </span><span class="ss">&#39;/</span> <span class="nv">main</span><span class="p">)</span> <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">u</span> <span class="p">(</span><span class="nb">nth </span><span class="nv">args</span> <span class="mi">0</span><span class="p">)</span>
                               <span class="nv">du</span> <span class="p">(</span><span class="nf">der</span> <span class="nv">u</span><span class="p">)</span>
-                              <span class="nv">v</span> <span class="p">(</span><span class="nb">get </span><span class="mi">1</span> <span class="nv">args</span><span class="p">)</span>
+                              <span class="nv">v</span> <span class="p">(</span><span class="nb">nth </span><span class="nv">args</span> <span class="mi">1</span><span class="p">)</span>
                               <span class="nv">dv</span> <span class="p">(</span><span class="nf">der</span> <span class="nv">v</span><span class="p">)]</span>
                           <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;/</span> <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;-</span> <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;*</span> <span class="nv">du</span> <span class="nv">v</span><span class="p">)</span> <span class="p">(</span><span class="nf">list</span>
 <span class="ss">&#39;*</span> <span class="nv">u</span> <span class="nv">dv</span><span class="p">))</span> <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;**</span> <span class="nv">v</span> <span class="mi">2</span><span class="p">)))</span>
-            <span class="p">(</span><span class="nb">= </span><span class="ss">&#39;**</span> <span class="nv">main</span><span class="p">)</span> <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">u</span> <span class="p">(</span><span class="nb">get </span><span class="mi">0</span> <span class="nv">args</span><span class="p">)</span>
+            <span class="p">(</span><span class="nb">= </span><span class="ss">&#39;**</span> <span class="nv">main</span><span class="p">)</span> <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">u</span> <span class="p">(</span><span class="nb">nth </span><span class="nv">args</span> <span class="mi">0</span><span class="p">)</span>
                                <span class="nv">du</span> <span class="p">(</span><span class="nf">der</span> <span class="nv">u</span><span class="p">)</span>
-                               <span class="nv">v</span> <span class="p">(</span><span class="nb">get </span><span class="mi">1</span> <span class="nv">args</span><span class="p">)</span>
+                               <span class="nv">v</span> <span class="p">(</span><span class="nb">nth </span><span class="nv">args</span> <span class="mi">1</span><span class="p">)</span>
                                <span class="nv">dv</span> <span class="p">(</span><span class="nf">der</span> <span class="nv">v</span><span class="p">)]</span>
-                           <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;*</span> <span class="nv">du</span> <span class="nv">something</span><span class="p">))))))</span>
-<span class="c1">;;TODO: finish that code</span>
+                           <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;_</span> <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;+</span> <span class="nv">dv</span> <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;/</span> <span class="nv">du</span> <span class="nv">u</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">list </span><span class="ss">&#39;**</span> <span class="nv">u</span> <span class="nv">v</span><span class="p">))))</span>
+            <span class="p">(</span><span class="nb">= </span><span class="ss">&#39;exp</span> <span class="nv">main</span><span class="p">)</span> <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">u</span> <span class="p">(</span><span class="nb">nth </span><span class="nv">args</span> <span class="mi">0</span><span class="p">)</span>
+                                <span class="nv">du</span> <span class="p">(</span><span class="nf">der</span> <span class="nv">u</span><span class="p">)]</span>
+                            <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;*</span> <span class="nv">du</span> <span class="p">(</span><span class="nf">exp</span> <span class="nv">u</span><span class="p">)))</span>
+            <span class="p">(</span><span class="nb">= </span><span class="ss">&#39;ln</span> <span class="nv">main</span><span class="p">)</span> <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">u</span> <span class="p">(</span><span class="nb">nth </span><span class="nv">args</span> <span class="mi">0</span><span class="p">)</span>
+                                <span class="nv">du</span> <span class="p">(</span><span class="nf">der</span> <span class="nv">u</span><span class="p">)]</span>
+                            <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;/</span> <span class="nv">du</span> <span class="nv">u</span><span class="p">))</span>
+            <span class="p">(</span><span class="nb">= </span><span class="ss">&#39;cos</span> <span class="nv">main</span><span class="p">)</span> <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">u</span> <span class="p">(</span><span class="nb">nth </span><span class="nv">args</span> <span class="mi">0</span><span class="p">)</span>
+                                <span class="nv">du</span> <span class="p">(</span><span class="nf">der</span> <span class="nv">u</span><span class="p">)]</span>
+                            <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;*</span> <span class="p">(</span><span class="ss">&#39;*</span> <span class="mi">-1</span> <span class="nv">du</span><span class="p">)</span> <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;sin</span> <span class="nv">u</span><span class="p">)))</span>
+            <span class="p">(</span><span class="nb">= </span><span class="ss">&#39;sin</span> <span class="nv">main</span><span class="p">)</span> <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">u</span> <span class="p">(</span><span class="nb">nth </span><span class="nv">args</span> <span class="mi">0</span><span class="p">)</span>
+                                <span class="nv">du</span> <span class="p">(</span><span class="nf">der</span> <span class="nv">u</span><span class="p">)]</span>
+                            <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;*</span> <span class="nv">du</span> <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;sin</span> <span class="nv">u</span><span class="p">)))</span>
+            <span class="ss">:default</span> <span class="nv">nil</span><span class="p">))))</span>
 </pre></div>
 
 
@@ -667,8 +706,8 @@ evaluated, but with a macro, it is: here is a macro that extracts the
 source code of an anonymous function: <code>(defmacro get-code [func] (list
 'quote (nth func 2)))</code></p>
 <p>First let's see how it works in the Clojure interpreter:</p>
-<div class="codehilite"><pre>user=&gt; (get-code (fn [x] (+ 1 x)))
-(+ 1 x)
+<div class="codehilite"><pre><span class="nv">user=&gt;</span> <span class="p">(</span><span class="nf">get-code</span> <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">x</span><span class="p">]</span> <span class="p">(</span><span class="nb">+ </span><span class="mi">1</span> <span class="nv">x</span><span class="p">)))</span>
+<span class="p">(</span><span class="nb">+ </span><span class="mi">1</span> <span class="nv">x</span><span class="p">)</span>
 </pre></div>
 
 
@@ -682,8 +721,8 @@ is here to say "ok, treat that as a list instead of trying to evaluate
 it". The symbol <code>'</code> before the <code>quote</code> is here to tell the clojure
 compiler not to eval <code>quote</code> right away.</p>
 <p>We can see how the <code>get-code</code> macro is expanded, using <code>macroexpand</code>:</p>
-<div class="codehilite"><pre>user=&gt; (macroexpand &#39;(get-code (fn [x] (+ 1 x))))
-(quote (+ 1 x))
+<div class="codehilite"><pre><span class="nv">user=&gt;</span> <span class="p">(</span><span class="nb">macroexpand </span><span class="o">&#39;</span><span class="p">(</span><span class="nf">get-code</span> <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">x</span><span class="p">]</span> <span class="p">(</span><span class="nb">+ </span><span class="mi">1</span> <span class="nv">x</span><span class="p">))))</span>
+<span class="p">(</span><span class="k">quote </span><span class="p">(</span><span class="nb">+ </span><span class="mi">1</span> <span class="nv">x</span><span class="p">))</span>
 </pre></div>
 
 
@@ -693,8 +732,8 @@ returns the list <code>(+ 1 x)</code>.</p>
 <p>Once we have extracted the code of <code>func</code> we will calculate its
 derivative as a list representing its syntactic tree, and then we will
 need to make a function out of it. This can be done with a macro:</p>
-<div class="codehilite"><pre><span class="p">(</span><span class="n">defmacro</span> <span class="n">make</span><span class="o">-</span><span class="n">function</span> <span class="p">[</span><span class="n">variable</span> <span class="n">core</span><span class="p">]</span>
-    <span class="p">(</span><span class="n">list</span> <span class="err">&#39;</span><span class="n">fn</span> <span class="p">[</span><span class="n">variable</span><span class="p">]</span> <span class="n">core</span><span class="p">))</span>
+<div class="codehilite"><pre><span class="p">(</span><span class="kd">defmacro </span><span class="nv">make-function</span> <span class="p">[</span><span class="nv">variable</span> <span class="nv">core</span><span class="p">]</span>
+    <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;fn</span> <span class="p">[</span><span class="nv">variable</span><span class="p">]</span> <span class="nv">core</span><span class="p">))</span>
 </pre></div>
 
 
