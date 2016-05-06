@@ -80,7 +80,8 @@ MathJax.Hub.Config({
 .MathJax	.il { color	: inherit; font-weight: inherit}
 
 </STYLE>
-#Example of a Lisp macro to implement Newton-Raphson algorithm.
+#Implementation of the Newton-Raphson algorithm in Python and Clojure:
+#showing the advantage of the Lisp syntax
 
 We introduce two numerical algorithms to solve equations: the
 bissection algorithm and the Newton-Raphson algorithm. Newton-Raphson
