@@ -1,0 +1,5 @@
+{% for x in site.shogi %}
+{% if x.page_number == (page.next_page_number + 1) %}
+<p><a href = "{{ x.url }}">Next</a></p>
+{% endif %}
+{% endfor %}
