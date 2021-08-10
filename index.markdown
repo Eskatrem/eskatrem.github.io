@@ -4,3 +4,4 @@
 
 layout: home
 ---
+My personal pages. Mostly to talk about math, programming, chess and shogi.
