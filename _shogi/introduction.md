@@ -53,7 +53,7 @@ This is how physical shogi pieces look like:
 
 Do you notice something about the pieces? They don't have a color! Instead, each piece is a pentagon whose tip is pointing towards the opponent.
 
-There is a very good reason for that: unlike chess where captured pieces are dead, in shogi captured pieces can be reused: instead of playing a "normal" move, a player can use one of the pieces they have captured and put (drop) in on the board, as their piece (there are some restrictions on where a piece can be dropped, that will be covered later).
+There is a very good reason for that: unlike chess where captured pieces are dead, in shogi captured pieces can be reused: instead of playing a "normal" move, a player can use one of the pieces they have captured and put (drop) it on the board, as their piece (there are some restrictions on where a piece can be dropped, that will be covered later).
 
 
 
