@@ -7,7 +7,7 @@ next_page_number: 2
 ---
 Shogi is the Japanese version of chess. Similar to chess, each player has a set of various pieces, including a King, and, like in chess, the goal is to capture the opponent's king.
 
-This is how the king looks like: <img src="assets/img/sente/king.png">.
+This is what the king looks like: <img src="assets/img/sente/king.png">.
 
 And this is the starting position:
 
@@ -47,7 +47,7 @@ addPieceToSquare(1, 1, "r");
 addPieceToSquare(7, 1, "b");
 
 </script>
-This is how physical shogi pieces look like:
+This is what physical shogi pieces look like:
 
 <img src="assets/img/shogi_photo.jpg">
 
