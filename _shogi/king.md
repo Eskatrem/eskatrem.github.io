@@ -23,6 +23,3 @@ The King in shogi is just like the King in chess, he can move one square in each
 		addCircleToSquare(x, y);
 	}
 </script>
-
-
-{% include navigation.md %}
