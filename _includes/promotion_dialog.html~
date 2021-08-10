@@ -1,5 +1,0 @@
-      <div id="dialog" title="Promotion dialog">
-	<p>promote?</p>
-	<button id="promotion_yes" onclick="console.log('promotion_yes');  $('#dialog').dialog('close');"></button>
-	<button id="promotion_no" onclick="console.log('promotion_no'); $('#dialog').dialog('close');"></button>
-      </div>
