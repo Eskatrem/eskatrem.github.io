@@ -38,6 +38,19 @@ function switch_color(piece) {
 }
 
 function can_move(piece, init_x, init_y, new_x, new_y, position) {
+    var valid_move = validate_move(piece, init_x, init_y, new_x, new_y, position);
+    if(!valid_move) {
+	return(false);
+    }
+    var position_copy = copy_position(position);
+    execute_move(position_copy, new Coord(init_x, init_y), Coord(new_x, new_y), piece);
+    if(is_check(position_copy)) {
+	return(false);
+    }
+    return(true);
+}
+
+function validate_move(piece, init_x, init_y, new_x, new_y, position) {
     var dx = init_x - new_x;
     var dy = init_y - new_y;
     if(position[new_y][new_x] != 0) {
@@ -124,7 +137,7 @@ function can_move(piece, init_x, init_y, new_x, new_y, position) {
     } else if(piece == "PR" || piece == "pr") {
 	return validate_promoted_rook_move(init_x, init_y, new_x, new_y, position);
     } else if(piece == "PB" || piece == "pb") {
-
+	return validate_promoted_bishop_move(init_x, init_y, new_x, new_y, position);
     }
     
     console.log("outside the switch statement: piece =", piece);
@@ -267,6 +280,14 @@ function get_promoted_piece(piece) {
     }
 }
 
+function get_unpromoted_piece(piece) {
+    if(piece.length == 2) {
+	return(piece[1]);
+    } else {
+	return(piece);
+    }
+}
+
 function get_similar_piece(piece) {
     if(piece == "pp" || piece == "pn" || piece == "pl" || piece == "ps") {
 	return("g");
@@ -280,7 +301,7 @@ function get_similar_piece(piece) {
 function in_board(square) {
     var x = square[0];
     var y = square[1];
-    return(x > 0 && x < 9 && y > 0 && y < 9);
+    return(x >= 0 && x < 9 && y >= 0 && y < 9);
 }
 
 function is_valid_square(square, color, board) {
@@ -399,7 +420,7 @@ function list_legal_bishop_moves(x, y, color, board) {
     for(var i = 0; i < dirs.length; i++) {
 	var dir = dirs[i];
 	var tmp = extend_dir_from_square(square, dir, color, board);
-	res += tmp;
+	res = res.concat(tmp);
     }
     return(res);
 }
@@ -412,7 +433,7 @@ function list_legal_rook_moves(x, y, color, board) {
     for(var i = 0; i < dirs.length; i++) {
 	var dir = dirs[i];
 	var tmp = extend_dir_from_square(square, dir, color, board);
-	res += tmp;
+	res = res.concat(tmp);
     }
     return(res);
 }

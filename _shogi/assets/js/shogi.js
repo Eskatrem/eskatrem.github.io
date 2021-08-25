@@ -60,6 +60,7 @@ function drag_utsu(ev) {
 
 function print_board() {
     var board = position["board"];
+    var tmp_line;
     for(var y = 0; y < 9; y++) {
 	tmp_line = "";
 	for(var x = 0; x < 9; x++) {
@@ -67,6 +68,22 @@ function print_board() {
 	    tmp_line += "";
 	}
 	console.log(tmp_line);
+    }
+}
+
+function execute_move(position, square_from, square_to, piece) {
+    // if square from is null, then it's a drop
+    if(square_from != null) {
+	position["board"][square_from.y][square_from.x] = 0;
+	var captured = position["board"][square_to.y][square_to.x];
+	if(captured != 0) {
+	    var captured_unpromoted = get_unpromoted_piece(captured);
+	    var piece_kind = captured_unpromoted.toLowerCase();
+	    position["to_drop"][color][piece_kind] += 1;
+	}
+	position["board"][square_to.y][square_to.x] = piece;
+    } else {
+	position["board"][square_to.y][square_to.x] = piece;
     }
 }
 
@@ -125,7 +142,7 @@ function drop(ev, after_drop_callback) {
 		ev.target.appendChild(elt);
 		
 	    } else {
-		captured_piece = position["board"][new_y][new_x];
+		captured_piece = get_unpromoted_piece(position["board"][new_y][new_x]);
 		target.children[0].remove();
 		position["board"][new_y][new_x] = piece;
 		elt = document.getElementById(data);
@@ -247,5 +264,30 @@ function render_board(pieces) {
    }
 }
 
+function copy_board(board) {
+    var new_board = [];
+    for(var i = 0; i < 9; i++) {
+	var tmp_row = [];
+	for(var j = 0; j < 9; j++) {
+	    tmp_row.push(board[i][j]);
+	}
+	new_board.push(tmp_row);
+    }
+    return(new_board);
+}
 
-
+function copy_position(position) {
+    var new_board = copy_board(position["board"]);
+    var new_position = {"board": new_board, to_drop: {"sente": [], "gote": []}};
+    var keys = ["p", "l", "n", "s", "g", "b", "r"];
+    var n_keys = 7; // keys.length
+    for(var i = 0; i < n_keys; i++) {
+	var key = keys[i];
+	new_position["to_drop"]["sente"][key] = position["to_drop"]["sente"][key];
+    }
+    for(i = 0; i < n_keys; i++){
+	key = keys[i];
+	new_position["to_drop"]["gote"][key] = position["to_drop"]["gote"][key];
+    }
+    return(new_position);
+}

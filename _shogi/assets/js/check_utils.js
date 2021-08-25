@@ -67,7 +67,8 @@ function calculate_direction(x1, y1, x2, y2) {
     return([dx, dy]);
 }
 
-function is_checkmate(board, color) {
+function is_checkmate(position, color) {
+    var board = position["board"];
     var checking_pieces = find_checking_pieces(board, color);
     if(checking_pieces.length == 0) {
 	// no check, so no checkmate

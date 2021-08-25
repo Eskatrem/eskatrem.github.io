@@ -17,7 +17,7 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-shogi_pages_order: ["intro", "king", "gold", "first_mate", "second_mate", "silver", "knight", "lance"]
+shogi_pages_order: ["intro", "king", "gold", "first_mate", "second_mate", "silver", "knight", "lance", "promotions", "promoted_bishop", "promoted_rook", "illegal_drops"]
 
 title: Samuel Lê's personal page
 description: >- # this means to ignore newlines until "baseurl:"
