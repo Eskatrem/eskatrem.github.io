@@ -44,6 +44,12 @@ This will allow everybody to play four games.
 
 The composition of the two blocks will be decided randomly by Slek.
 
+### Matching and colours
+
+Players are expected to discuss between themselves to find a convenient time to play their game, and then manually match each others. We will let the server decide of the colours.
+
+
+
 ### Rankings and tie breaks
 
 The total score according to the football rule (win: 3 points, draw: 1 point, defeat: 0 points) will be used to rank the players.
@@ -66,9 +72,27 @@ The tie breaks will be used twice:
 
 - after the final round has been played so we can have the final rankings.
 
-# Blocks composition
+## Blocks composition
 
-`to be announced`
+### Group A
+
+1. slek
+
+2. kurumim
+
+3. nraravind
+
+4. `to_be_determined`
+
+### Group B
+
+1. thao
+
+2. blore
+
+3. yudhajeetde
+
+4. dasr
 
 # Results
 
