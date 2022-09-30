@@ -168,7 +168,7 @@ function getSquare(i, j) {
 
 function get_img_name(piece) {
     var color = piece.toUpperCase() == piece? "sente": "gote";
-    var img_name = "assets/img/" + color + "/";
+    var img_name = "assets/img/shogi_cz/" + color + "/";
     var piece_cap = piece.toUpperCase();
     if(piece_cap=="K") {
 	img_name += "king";
