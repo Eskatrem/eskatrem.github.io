@@ -18,7 +18,7 @@ The participating players are (listed in no particular order):
 
 - nraravind
 
-- `one more player not decided yet`
+- pchesso
 
 ## Tournament
 
@@ -82,7 +82,7 @@ The tie breaks will be used twice:
 
 3. nraravind
 
-4. `to_be_determined`
+4. pchesso
 
 ### Group B
 
@@ -93,6 +93,43 @@ The tie breaks will be used twice:
 3. yudhajeetde
 
 4. dasr
+
+## Cross tables
+
+### Group A
+
+ player      | slek | kurumim | nraravind | pchesso | total
+-------------|---|---|---|---|---
+  slek      | x |   |   |   | 0
+  kurumim   |   | x |   |   | 0
+  nraravind |   |   | x |   | 0
+  pchesso   |   |   |   | x | 0
+
+  
+### Group B
+
+ player      | thao | blore | yudhajeetde | dasr | total
+-------------|---|---|---|---|---
+  thao      | x |   |   |   | 0
+  blore   |   | x |   |   | 0
+  yudhajeetde |   |   | x |   | 0
+  dasr   |   |   |   | x | 0
+
+## Pairings
+
+### Round 1
+
+kurumim - slek
+
+nraravind - pchesso
+
+thao - blore
+
+yudhajeetde - dasr
+
+### Instructions
+
+Please contact your opponent as soon as possible to set up a time for your game. Once the game is finished, please message Slek with the results and a link to the game on ficsgames.org. Slek will update this page as soon as possible, and when all the games of Round 1 will be completed, we will start round 2.
 
 # Results
 
