@@ -101,7 +101,7 @@ The tie breaks will be used twice:
  player     | slek | kurumim | nraravind | pchesso | total
 ------------|---|---|---|---|---
   slek      | x | 0 |   |   | 0
-  kurumim   | 3 | x |   |   | 0
+  kurumim   | 3 | x |   |   | 3
   nraravind |   |   | x | 0 | 0
   pchesso   |   |   | 3 | x | 3
 
