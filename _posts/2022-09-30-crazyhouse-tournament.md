@@ -100,8 +100,8 @@ The tie breaks will be used twice:
 
  player     | slek | kurumim | nraravind | pchesso | total
 ------------|---|---|---|---|---
-  slek      | x |   |   |   | 0
-  kurumim   |   | x |   |   | 0
+  slek      | x | 0 |   |   | 0
+  kurumim   | 3 | x |   |   | 0
   nraravind |   |   | x | 0 | 0
   pchesso   |   |   | 3 | x | 3
 
@@ -119,7 +119,7 @@ The tie breaks will be used twice:
 
 ### Round 1
 
-kurumim - slek (taking place the 2022-10-08 at 8.00 server time)
+kurumim - slek ([1-0](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512668395))
 
 nraravind - pchesso ([0-1](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512666188))
 
