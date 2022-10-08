@@ -98,12 +98,12 @@ The tie breaks will be used twice:
 
 ### Group A
 
- player      | slek | kurumim | nraravind | pchesso | total
--------------|---|---|---|---|---
+ player     | slek | kurumim | nraravind | pchesso | total
+------------|---|---|---|---|---
   slek      | x |   |   |   | 0
   kurumim   |   | x |   |   | 0
-  nraravind |   |   | x |   | 0
-  pchesso   |   |   |   | x | 0
+  nraravind |   |   | x | 0 | 0
+  pchesso   |   |   | 3 | x | 3
 
   
 ### Group B
@@ -112,20 +112,20 @@ The tie breaks will be used twice:
 -------------|---|---|---|---|---
   thao      | x |   |   |   | 0
   blore   |   | x |   |   | 0
-  yudhajeetde |   |   | x |   | 0
-  dasr   |   |   |   | x | 0
+  yudhajeetde |   |   | x | 3 | 3
+  dasr   |   |   | 0 | x | 0
 
 ## Pairings
 
 ### Round 1
 
-kurumim - slek
+kurumim - slek (taking place the 2022-10-08 at 8.00 server time)
 
-nraravind - pchesso
+nraravind - pchesso ([0-1](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512666188))
 
 thao - blore
 
-yudhajeetde - dasr
+yudhajeetde - dasr ([1-0](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512653661))
 
 ### Instructions
 
