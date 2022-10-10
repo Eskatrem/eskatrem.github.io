@@ -110,8 +110,8 @@ The tie breaks will be used twice:
 
  player      | thao | blore | yudhajeetde | dasr | total
 -------------|---|---|---|---|---
-  thao      | x |   |   |   | 0
-  blore   |   | x |   |   | 0
+  thao      | x | 0 |   |   | 0
+  blore   | 3 | x |   |   | 3
   yudhajeetde |   |   | x | 3 | 3
   dasr   |   |   | 0 | x | 0
 
@@ -123,13 +123,23 @@ kurumim - slek ([1-0](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512668395))
 
 nraravind - pchesso ([0-1](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512666188))
 
-thao - blore
+thao - blore ([0-1](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512683956))
 
 yudhajeetde - dasr ([1-0](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512653661))
 
+### Round 2
+
+kurumim - pchesso
+
+nraravind - slek
+
+thao - yudhajeetde
+
+blore - dasr
+
 ### Instructions
 
-Please contact your opponent as soon as possible to set up a time for your game. Once the game is finished, please message Slek with the results and a link to the game on ficsgames.org. Slek will update this page as soon as possible, and when all the games of Round 1 will be completed, we will start round 2.
+Please contact your opponent as soon as possible to set up a time for your game. Once the game is finished, please message Slek with the results and a link to the game on ficsgames.org. Slek will update this page as soon as possible, and when all the games of Round 2 will be completed, we will start round 3.
 
 # Results
 
