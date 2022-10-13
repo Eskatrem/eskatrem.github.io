@@ -100,9 +100,9 @@ The tie breaks will be used twice:
 
  player     | slek | kurumim | nraravind | pchesso | total
 ------------|---|---|---|---|---
-  slek      | x | 0 |   |   | 0
+  slek      | x | 0 | 3 |   | 3
   kurumim   | 3 | x |   |   | 3
-  nraravind |   |   | x | 0 | 0
+  nraravind | 0 |   | x | 0 | 0
   pchesso   |   |   | 3 | x | 3
 
   
@@ -110,9 +110,9 @@ The tie breaks will be used twice:
 
  player      | thao | blore | yudhajeetde | dasr | total
 -------------|---|---|---|---|---
-  thao      | x | 0 |   |   | 0
+  thao      | x | 0 | 0 |   | 0
   blore   | 3 | x |   |   | 3
-  yudhajeetde |   |   | x | 3 | 3
+  yudhajeetde | 3 |   | x | 3 | 6
   dasr   |   |   | 0 | x | 0
 
 ## Pairings
@@ -131,9 +131,9 @@ yudhajeetde - dasr ([1-0](https://www.ficsgames.org/cgi-bin/show.cgi?ID=51265366
 
 kurumim - pchesso
 
-nraravind - slek
+nraravind - slek ([0-1](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512701559))
 
-thao - yudhajeetde
+thao - yudhajeetde ([0-1](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512703649))
 
 blore - dasr
 
