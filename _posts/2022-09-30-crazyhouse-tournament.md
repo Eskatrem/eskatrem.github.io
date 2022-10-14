@@ -101,19 +101,19 @@ The tie breaks will be used twice:
  player     | slek | kurumim | nraravind | pchesso | total
 ------------|---|---|---|---|---
   slek      | x | 0 | 3 |   | 3
-  kurumim   | 3 | x |   |   | 3
+  kurumim   | 3 | x |   | 3 | 6
   nraravind | 0 |   | x | 0 | 0
-  pchesso   |   |   | 3 | x | 3
+  pchesso   |   | 0 | 3 | x | 3
 
   
 ### Group B
 
- player      | thao | blore | yudhajeetde | dasr | total
--------------|---|---|---|---|---
-  thao      | x | 0 | 0 |   | 0
-  blore   | 3 | x |   |   | 3
+ player       | thao | blore | yudhajeetde | dasr | total
+--------------|---|---|---|---|---
+  thao        | x | 0 | 0 |   | 0
+  blore       | 3 | x |   | 3 | 6
   yudhajeetde | 3 |   | x | 3 | 6
-  dasr   |   |   | 0 | x | 0
+  dasr        |   | 0 | 0 | x | 0
 
 ## Pairings
 
@@ -129,13 +129,23 @@ yudhajeetde - dasr ([1-0](https://www.ficsgames.org/cgi-bin/show.cgi?ID=51265366
 
 ### Round 2
 
-kurumim - pchesso
+kurumim - pchesso ([1-0](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512709049))
 
 nraravind - slek ([0-1](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512701559))
 
 thao - yudhajeetde ([0-1](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512703649))
 
-blore - dasr
+blore - dasr([1-0](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512709556))
+
+### Round 3
+
+kurumim - nraravind
+
+slek - pchesso
+
+blore - yudhajeetde
+
+thao - dasr
 
 ### Instructions
 
