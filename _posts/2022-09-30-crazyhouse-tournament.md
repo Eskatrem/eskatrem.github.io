@@ -105,15 +105,36 @@ The tie breaks will be used twice:
   nraravind | 0 | 0 | x | 0 | 0
   pchesso   | 0 | 0 | 3 | x | 3
 
+Rankings:
+
+1. kurumim (9/9)
+
+2. Slek (6/9)
+
+3. pchesso (3/9)
+
+4. nraravind (0/9)
   
 ### Group B
 
  player       | thao | blore | yudhajeetde | dasr | total
 --------------|---|---|---|---|---
-  thao        | x | 0 | 0 |   | 0
+  thao        | x | 0 | 0 | 0 | 0
   blore       | 3 | x | 3 | 3 | 9
   yudhajeetde | 3 | 0 | x | 3 | 6
-  dasr        |   | 0 | 0 | x | 0
+  dasr        | 3 | 0 | 0 | x | 3
+  
+  
+Rankings:
+
+1. blore (9/9)
+
+2. Yudhajeetde (6/9)
+
+3. dasr (3/9)
+
+4. thao (0/9)
+
 
 ## Pairings
 
@@ -145,7 +166,17 @@ slek - pchesso ([1-0](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512722868))
 
 blore - yudhajeetde ([1-0](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512724131))
 
-thao - dasr
+thao - dasr ([0-1](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512771344))
+
+### Roung 4
+
+kurumim - blore
+
+slek - yudhajeetde
+
+pchesso - dasr
+
+nraravind - thao
 
 ### Instructions
 
