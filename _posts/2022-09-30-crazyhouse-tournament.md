@@ -174,7 +174,7 @@ kurumim - blore
 
 slek - yudhajeetde
 
-pchesso - dasr
+pchesso - dasr ([1-0](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512777281))
 
 nraravind - thao
 
