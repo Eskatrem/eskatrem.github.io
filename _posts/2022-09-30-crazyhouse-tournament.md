@@ -168,9 +168,9 @@ blore - yudhajeetde ([1-0](https://www.ficsgames.org/cgi-bin/show.cgi?ID=5127241
 
 thao - dasr ([0-1](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512771344))
 
-### Roung 4
+### Round 4
 
-kurumim - blore
+kurumim - blore ([1-0](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512792819))
 
 slek - yudhajeetde
 
