@@ -136,7 +136,7 @@ Rankings:
 4. thao (0/9)
 
 
-## Pairings
+## Pairings and results
 
 ### Round 1
 
@@ -172,16 +172,21 @@ thao - dasr ([0-1](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512771344))
 
 kurumim - blore ([1-0](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512792819))
 
-slek - yudhajeetde
+slek - yudhajeetde ([1-0](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512830315))
 
 pchesso - dasr ([1-0](https://www.ficsgames.org/cgi-bin/show.cgi?ID=512777281))
 
-nraravind - thao
+nraravind - thao 0.5-0.5 (unplayed)
 
 ### Instructions
 
 Please contact your opponent as soon as possible to set up a time for your game. Once the game is finished, please message Slek with the results and a link to the game on ficsgames.org. Slek will update this page as soon as possible, and when all the games of Round 2 will be completed, we will start round 3.
 
-# Results
+# standings
 
-`to be announced`
+1. kurumim (12/12)
+
+2. slek (9/12, tie-break: 13)
+
+3. blore (9/12, tie-break: 10)
+
