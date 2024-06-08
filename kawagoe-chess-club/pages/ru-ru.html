@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<title>ルール — 川越チェスクラブ </title>
+	<meta name="description" content="">
+	<meta name="author" content="Jacques Pineau">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+		<script src="./theme/html5.js"></script>
+		<![endif]-->
+	<link href="./theme/css/ipython.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/simplex/bootstrap.min.css" rel="stylesheet">
+	<link href="./theme/css/local.css" rel="stylesheet">
+	<link href="./theme/css/pygments.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+	<div class="page-header">
+		<h1><a href="./">川越チェスクラブ</a>
+			<br>	</div>
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+        
+<section id="content" class="body">    
+    <p><link href="../css/chessground.base.css" rel="stylesheet">
+<link href="../css/chessground.brown.css" rel="stylesheet">
+<link href="../css/chessground.cburnett.css" rel="stylesheet">
+<link href="../css/custom.css" rel="stylesheet"></p>
+<p>PROBLEM: need to change pelican-javascript to make imports relative (or just move the js and css files to pages)</p>
+<h3>キング</h3>
+<p>キングは将棋の王と同じです！</p>
+<div class="chessground" id="board-king" data-fen="8/8/8/4K3/8/8/8/8"  data-view-only="true"></div>
+
+<div class="chess-dot" data-board-id="board-king" data-square="f6" ></div>
+
+<div class="chess-dot" data-board-id="board-king" data-square="f5" ></div>
+
+<div class="chess-dot" data-board-id="board-king" data-square="f4" ></div>
+
+<div class="chess-dot" data-board-id="board-king" data-square="d6" ></div>
+
+<div class="chess-dot" data-board-id="board-king" data-square="e6" ></div>
+
+<div class="chess-dot" data-board-id="board-king" data-square="d5" ></div>
+
+<div class="chess-dot" data-board-id="board-king" data-square="d4" ></div>
+
+<div class="chess-dot" data-board-id="board-king" data-square="e4" ></div>
+
+<h3>ポーン</h3>
+<p>このページにはポーンの動き方を教えてあげます。</p>
+<p>フランス語で説明：</p>
+<p>Ils sont "l'âme du jeu des échecs" remarqua avec une élégance typique l'époque, mon compatriote, musicien du Roi Louis XV puis XVI et joueur renommé de la discipline qui fait notre sujet d'étude, François André Danican dit Philidor (1726~1795)
+Les pions peuvent facilement former une chaîne compacte dictant la conduite aux pièces. Leur importance est telle que l'on distingue 2 catégories de positions, celles ouvertes dans lesquelles les pièces ont libre jeu et celles fermées dans lesquelles le tempo des pièces est guidée par les pions.
+Mikhail Botvinnik (1911~1995) champion du monde de 1946 à 1963 à l'exception des années 48 et 61 notait que Paul Morphy avait tout inventé en ce qui concerne les positions ouvertes ! Malgré la très courte carrière échiquéenne du génial américain peu remettent en question cette affirmation. Mais les positions closes furent sujet d'études de joueurs ultérieurs et tout particuli`rement du théoricien Aron Nimzowitsch (1886~1935)</p>
+<p>Quand il n'est pas sur sa position initiale, le pion avance d'une case:</p>
+<div class="chessground" id="board-pawn1" data-fen="8/8/8/8/8/3P4/8/8"  data-view-only="true"></div>
+
+<div class="chess-dot" data-board-id="board-pawn1" data-square="d4" ></div>
+
+<p>En revanche, sur sa position initiale, le pion peut avancer d'une ou de deux cases:</p>
+<div class="chessground" id="board-pawn2" data-fen="8/8/8/8/8/8/3P4/8"  data-view-only="true"></div>
+
+<div class="chess-dot" data-board-id="board-pawn2" data-square="d3" ></div>
+
+<div class="chess-dot" data-board-id="board-pawn2" data-square="d4" ></div>
+
+<p>Les pions capturent en diagonale.</p>
+<div class="chessground" id="board-pawn3" data-fen="8/8/8/8/2p1p3/3P4/8/8"  data-view-only="true"></div>
+
+<div class="chess-arrow" data-board-id="board-pawn3" data-start="d3" data-end="e4" ></div>
+
+<div class="chess-arrow" data-board-id="board-pawn3" data-start="d3" data-end="c4" ></div>
+
+<h3>ルック</h3>
+<p>ビショップは将棋の角と同じです。</p>
+<div class="chessground" id="board-rook" data-fen="8/8/8/4R3/8/8/8/8"  data-view-only="true"></div>
+
+<div class="chess-arrow" data-board-id="board-rook" data-start="e6" data-end="e8" ></div>
+
+<div class="chess-arrow" data-board-id="board-rook" data-start="e4" data-end="e1" ></div>
+
+<div class="chess-arrow" data-board-id="board-rook" data-start="d5" data-end="a5" ></div>
+
+<div class="chess-arrow" data-board-id="board-rook" data-start="f5" data-end="h5" ></div>
+
+<h3>ビショップ</h3>
+<p>ビショップは将棋の角と同じです</p>
+<div class="chessground" id="board_bishop" data-fen="8/8/8/4B3/8/8/8/8"  data-view-only="true"></div>
+
+<div class="chess-arrow" data-board-id="board_bishop" data-start="d4" data-end="a1" ></div>
+
+<div class="chess-arrow" data-board-id="board_bishop" data-start="d6" data-end="b8" ></div>
+
+<div class="chess-arrow" data-board-id="board_bishop" data-start="f6" data-end="h8" ></div>
+
+<div class="chess-arrow" data-board-id="board_bishop" data-start="f4" data-end="h2" ></div>
+
+<h3>クイーン</h3>
+<p>クイーンはルックとビショップを合わせます。</p>
+<div class="chessground" id="board-test" data-fen="8/8/8/4Q3/8/8/8/8"  data-view-only="true"></div>
+
+<div class="chess-arrow" data-board-id="board-test" data-start="d4" data-end="a1" ></div>
+
+<div class="chess-arrow" data-board-id="board-test" data-start="d5" data-end="a5" ></div>
+
+<div class="chess-arrow" data-board-id="board-test" data-start="d6" data-end="b8" ></div>
+
+<div class="chess-arrow" data-board-id="board-test" data-start="e6" data-end="e8" ></div>
+
+<div class="chess-arrow" data-board-id="board-test" data-start="f6" data-end="h8" ></div>
+
+<div class="chess-arrow" data-board-id="board-test" data-start="f5" data-end="h5" ></div>
+
+<div class="chess-arrow" data-board-id="board-test" data-start="f4" data-end="h2" ></div>
+
+<div class="chess-arrow" data-board-id="board-test" data-start="e4" data-end="e1" ></div>
+
+<h3>ナイト</h3>
+<p>ナイトは将棋の桂馬と同じではありません！</p>
+<div class="chessground" id="board-knight" data-fen="8/8/8/4N3/8/8/8/8"  data-view-only="true"></div>
+
+<div class="chess-dot" data-board-id="board-knight" data-square="d7" ></div>
+
+<div class="chess-dot" data-board-id="board-knight" data-square="f7" ></div>
+
+<div class="chess-dot" data-board-id="board-knight" data-square="c6" ></div>
+
+<div class="chess-dot" data-board-id="board-knight" data-square="g6" ></div>
+
+<div class="chess-dot" data-board-id="board-knight" data-square="c4" ></div>
+
+<div class="chess-dot" data-board-id="board-knight" data-square="g4" ></div>
+
+<div class="chess-dot" data-board-id="board-knight" data-square="d3" ></div>
+
+<div class="chess-dot" data-board-id="board-knight" data-square="f3" ></div>
+
+<script src="../js/show_board.js" type="module"></script>
+</section>
+		</div>
+	</div> 	<!-- <hr> -->
+</div> <!-- /container -->
+<footer class="aw-footer bg-danger">
+	<div class="container"> <!-- footer -->
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="row">
+					<div class="col-md-3">
+						<h4>Navigation</h4>
+						<ul class="list-unstyled my-list-style">
+							<li><a href=".">川越チェスクラブ</a></li>
+							<li><a href="./pages/about.html"><i class="fa fa-About "></i> About</a></li>
+							<li><a href="./pages/ru-ru.html"><i class="fa fa-ルール "></i> ルール</a></li>
+						</ul>
+					</div>
+					<div class="col-md-3">
+						<h4>Author</h4>
+						<ul class="list-unstyled my-list-style">
+						</ul>
+					</div>
+					<div class="col-md-3">
+						<h4>Categories</h4>
+						<ul class="list-unstyled my-list-style">
+							<li><a href="./category/chess.html">Chess (1)</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 text-center center-block aw-bottom">
+			<p>&copy; Jacques Pineau 2016</p>
+			<p>Powered by Pelican</p>
+		</div>
+	</div>
+</div>
+<!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	$("div.collapseheader").click(function () {
+		$header = $(this).children("span").first();
+		$codearea = $(this).children(".input_area");
+		$codearea.slideToggle(500, function () {
+			$header.text(function () {
+				return $codearea.is(":visible") ? "Collapse Code" : "Expand Code";
+			});
+		});
+	});
+});
+</script>
+</body>
+</html>
