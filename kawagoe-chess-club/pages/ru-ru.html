@@ -76,6 +76,19 @@ Mikhail Botvinnik (1911~1995) champion du monde de 1946 à 1963 à l'exception d
 
 <div class="chess-arrow" data-board-id="board-pawn3" data-start="d3" data-end="c4" ></div>
 
+<h3>アンパッサン</h3>
+<div class="chessground" id="board-en-passant" data-fen="8/8/8/3pP3/8/8/8/8"  data-view-only="true"></div>
+
+<div class="chess-arrow" data-board-id="board-en-passant" data-start="d7" data-end="d5" ></div>
+
+<div class="chess-arrow" data-board-id="board-en-passant" data-start="e5" data-end="d6" ></div>
+
+<ul>
+<li>相手のポーンが通過したマスに、自分のポーンを移動させて駒を取る事ができる。相手のポーンを取らずに、そのマスへ移動することはできない。</li>
+<li>アンパッサンができるのは、次のポーンに限られている。</li>
+<li>e5まで進ませたポーンと、隣接する 4ランクまで進ませたポーン</li>
+<li>アンパッサンはチェスにおいての権利である。放棄して、他の手を指しても問題はない。</li>
+</ul>
 <h3>ルック</h3>
 <p>ビショップは将棋の角と同じです。</p>
 <div class="chessground" id="board-rook" data-fen="8/8/8/4R3/8/8/8/8"  data-view-only="true"></div>
@@ -102,23 +115,23 @@ Mikhail Botvinnik (1911~1995) champion du monde de 1946 à 1963 à l'exception d
 
 <h3>クイーン</h3>
 <p>クイーンはルックとビショップを合わせます。</p>
-<div class="chessground" id="board-test" data-fen="8/8/8/4Q3/8/8/8/8"  data-view-only="true"></div>
+<div class="chessground" id="board-queen" data-fen="8/8/8/4Q3/8/8/8/8"  data-view-only="true"></div>
 
-<div class="chess-arrow" data-board-id="board-test" data-start="d4" data-end="a1" ></div>
+<div class="chess-arrow" data-board-id="board-queen" data-start="d4" data-end="a1" ></div>
 
-<div class="chess-arrow" data-board-id="board-test" data-start="d5" data-end="a5" ></div>
+<div class="chess-arrow" data-board-id="board-queen" data-start="d5" data-end="a5" ></div>
 
-<div class="chess-arrow" data-board-id="board-test" data-start="d6" data-end="b8" ></div>
+<div class="chess-arrow" data-board-id="board-queen" data-start="d6" data-end="b8" ></div>
 
-<div class="chess-arrow" data-board-id="board-test" data-start="e6" data-end="e8" ></div>
+<div class="chess-arrow" data-board-id="board-queen" data-start="e6" data-end="e8" ></div>
 
-<div class="chess-arrow" data-board-id="board-test" data-start="f6" data-end="h8" ></div>
+<div class="chess-arrow" data-board-id="board-queen" data-start="f6" data-end="h8" ></div>
 
-<div class="chess-arrow" data-board-id="board-test" data-start="f5" data-end="h5" ></div>
+<div class="chess-arrow" data-board-id="board-queen" data-start="f5" data-end="h5" ></div>
 
-<div class="chess-arrow" data-board-id="board-test" data-start="f4" data-end="h2" ></div>
+<div class="chess-arrow" data-board-id="board-queen" data-start="f4" data-end="h2" ></div>
 
-<div class="chess-arrow" data-board-id="board-test" data-start="e4" data-end="e1" ></div>
+<div class="chess-arrow" data-board-id="board-queen" data-start="e4" data-end="e1" ></div>
 
 <h3>ナイト</h3>
 <p>ナイトは将棋の桂馬と同じではありません！</p>
@@ -139,6 +152,21 @@ Mikhail Botvinnik (1911~1995) champion du monde de 1946 à 1963 à l'exception d
 <div class="chess-dot" data-board-id="board-knight" data-square="d3" ></div>
 
 <div class="chess-dot" data-board-id="board-knight" data-square="f3" ></div>
+
+<h3>キャスリング</h3>
+<p>キングサイドキャスリング：</p>
+<div class="chessground" id="board-00" data-fen="8/8/8/8/8/8/8/4K2R"  data-view-only="true"></div>
+
+<div class="chess-arrow" data-board-id="board-00" data-start="e1" data-end="g1" ></div>
+
+<div class="chess-arrow" data-board-id="board-00" data-start="h1" data-end="f1" ></div>
+
+<p>クイーンサイドキャスリング：</p>
+<div class="chessground" id="board-000" data-fen="8/8/8/8/8/8/8/R3K$"  data-view-only="true"></div>
+
+<div class="chess-arrow" data-board-id="board-000" data-start="e1" data-end="c1" ></div>
+
+<div class="chess-arrow" data-board-id="board-000" data-start="a1" data-end="d1" ></div>
 
 <script src="../js/show_board.js" type="module"></script>
 </section>
@@ -161,6 +189,7 @@ Mikhail Botvinnik (1911~1995) champion du monde de 1946 à 1963 à l'exception d
 					<div class="col-md-3">
 						<h4>Author</h4>
 						<ul class="list-unstyled my-list-style">
+							<li><a href="https://twitter.com/jacqueschess/">Twitter</a></li>
 						</ul>
 					</div>
 					<div class="col-md-3">
