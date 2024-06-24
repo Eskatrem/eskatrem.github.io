@@ -1,3 +1,5 @@
+// @import '../../css/lichess-pgn-viewer.lib';
+
 import LichessPgnViewer from './lichess-pgn-viewer.min.js';
 
 
